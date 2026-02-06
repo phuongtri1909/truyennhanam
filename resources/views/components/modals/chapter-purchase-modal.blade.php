@@ -1,63 +1,51 @@
 <!-- Purchase Modal -->
 <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg">
+        <div class="modal-content border-0 shadow-lg purchase-modal-simple">
             <div class="modal-header bg-light border-0 text-center">
                 <div class="w-100">
                     <h5 class="modal-title fw-bold color-7 mb-0" id="purchaseModalLabel">Xác nhận mua chương</h5>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4">
-                <div class="purchase-info text-center">
-                    <div class="purchase-item-info mb-3">
-                        <h5 id="purchase-item-title" class="fw-bold mb-2"></h5>
-                        <p class="fw-semibold mb-0 " id="purchase-item-price">Bạn cần ủng hộ <span class="fw-bold color-7"></span> Cám để đọc chương này</p>
-                        <p class="fw-semibold mb-0 mt-2" id="purchase-combo-info" style="display: none;"></p>
-                    </div>
-
-                    <div class="user-balance mt-3 p-3 bg-light rounded-3">
-                        <p class="mb-0 fw-semibold">
-                            <i class="fas fa-coins me-2 text-warning"></i>
-                            Hiện bạn đang có <span id="user-balance"
-                                class="fw-bold color-7">{{ auth()->check() ? number_format(auth()->user()->coins) : 0 }}</span>
-                            Cám
+            <div class="modal-body p-4 purchase-modal-body">
+                {{-- Layout giống hình 3: 2 option với dashed "hoặc", content rút gọn --}}
+                <div class="purchase-options-block">
+                    {{-- Option 1: Mua chương (hoặc mua trọn bộ khi type=story) --}}
+                    <div class="purchase-option" id="option-chapter-block">
+                        <p class="purchase-option-main mb-1 fs-5 fw-semibold">
+                            Cần <span class="price-highlight" id="option-chapter-price"></span> để mở khoá chương này!
                         </p>
+                        <p class="purchase-option-sub text-muted small mb-0 color-3" id="option-chapter-sub"></p>
                     </div>
 
-                    <div id="insufficient-balance" class="alert alert-warning mt-3 d-none">
-                        <i class="fas fa-exclamation-triangle me-2"></i> Bạn không đủ Cám để đọc chương này. Vui lòng
-                        nạp thêm.
-                        <div class="mt-2">
-                            <a href="{{ route('user.bank.auto.deposit') }}" class="btn btn-sm btn-warning">Nạp Cám ngay</a>
-                        </div>
+                    {{-- Divider: hoặc --}}
+                    <div class="purchase-divider" id="purchase-divider">
+                        <span class="divider-line"></span>
+                        <span class="divider-text">hoặc</span>
+                        <span class="divider-line"></span>
                     </div>
 
-                    <div class="dots mt-3 mb-3">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-
-                    <div class="purchase-info-list text-start">
-                        <ul class="fw-semibold small text-muted mb-0" id="purchase-info-list">
-                            <li>Sau khi mua, bạn có thể [Đọc chương] này không giới hạn số lần.</li>
-                            <li>Bạn chỉ bị trừ Cám khi [Đọc chương] này lần đầu tiên.</li>
-                            <li>Kiểm tra Cám hiện tại <a href="{{ route('user.profile') }}" class="color-7">Tài
-                                    khoản</a>. Nạp thêm Cám tại <a href="{{ route('user.bank.auto.deposit') }}"
-                                    class="color-7">Nạp Cám</a>.</li>
-                        </ul>
+                    {{-- Option 2: Mua trọn bộ --}}
+                    <div class="purchase-option" id="option-combo-block">
+                        <p class="purchase-option-main mb-1 fw-semibold fs-5">
+                            Cần <span class="price-highlight" id="option-combo-price"></span> để mở khoá truyện này!
+                        </p>
+                        <p class="purchase-option-sub text-muted small mb-0 color-3" id="option-combo-sub"></p>
                     </div>
                 </div>
-                <form id="purchase-form" method="POST">
-                    @csrf
-                    <input type="hidden" id="purchase-type" name="purchase_type" value="chapter">
-                    <input type="hidden" id="purchase-item-id" name="chapter_id" value="">
-                </form>
+
+                <div id="insufficient-balance" class="alert alert-warning mt-3 d-none small">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Bạn không đủ Nấm. <a href="{{ route('user.bank.auto.deposit') }}" class="alert-link">Nạp Nấm ngay</a>
+                </div>
             </div>
+            <form id="purchase-form" method="POST">
+                @csrf
+                <input type="hidden" id="purchase-type" name="purchase_type" value="chapter">
+                <input type="hidden" id="purchase-item-id" name="chapter_id" value="">
+            </form>
             <div class="modal-footer border-0 pt-0 justify-content-center" id="modal-footer">
-                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn bg-7 fw-bold text-dark px-4" id="confirm-purchase-btn">
+                <button type="button" class="btn bg-1 fw-bold text-dark px-4 btn-lg rounded-4 " id="confirm-purchase-btn">
                     <span id="purchase-item-icon"></span>
                 </button>
             </div>
@@ -67,52 +55,82 @@
 
 @push('styles')
     <style>
-        /* Purchase Modal Dots Animation */
-        .dots span {
-            width: 10px;
-            height: 10px;
-            background: var(--primary-color-7);
-            border-radius: 50%;
-            display: inline-block;
-            margin: 0 2px;
+        .purchase-modal-simple .modal-body {
+            background: #faf8f5;
         }
 
-        /* Modal styling */
-        .modal-content {
-            border-radius: 15px;
-            overflow: hidden;
+        .purchase-options-block {
+            text-align: center;
         }
 
-        .purchase-info-list ul {
-            padding-left: 1.2rem;
+        .purchase-option-main {
+            font-size: 1rem;
+            color: #333;
         }
 
-        .purchase-info-list li {
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
+        .purchase-option-main .price-highlight {
+            color: var(--primary-color-1);
+            font-weight: 700;
         }
 
-        /* Dark mode support for modal */
-        body.dark-mode .modal-content {
-            background-color: #2d2d2d;
+        .purchase-option-sub {
+            font-size: 1rem;
+        }
+
+        .purchase-option-sub .sub-highlight {
+            color: #5a9a9a;
+            font-weight: 600;
+        }
+
+        .purchase-option-sub .discount-highlight {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+        .purchase-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 0;
+            border-top: 3px dashed var(--primary-color-3);
+        }
+
+        .divider-text {
+            font-size: 1.5rem;
+            color: var(--primary-color-3);
+            font-weight: 500;
+        }
+
+        .purchase-modal-footer .btn.bg-7 {
+            background: #7a8c6d;
+            border-color: #6b7c5f;
+        }
+
+        /* Dark mode */
+        body.dark-mode .purchase-modal-simple .modal-body {
+            background: #2d2d2d;
+        }
+
+        body.dark-mode .purchase-option-main {
             color: #e0e0e0;
         }
 
-        body.dark-mode .modal-header {
-            background-color: #404040 !important;
+        body.dark-mode .purchase-option-sub {
+            color: #999 !important;
         }
 
-        body.dark-mode .user-balance {
-            background-color: #404040 !important;
-            color: #e0e0e0;
+        body.dark-mode .divider-line {
+            border:3px dashed var(--primary-color-3);
         }
 
-        body.dark-mode .purchase-info-list {
+        body.dark-mode .divider-text {
             color: #ccc;
-        }
-
-        body.dark-mode .dots span {
-            background: var(--primary-color-7);
         }
     </style>
 @endpush
@@ -120,118 +138,103 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Variables to store current purchase information
         window.userCoins = {{ auth()->check() ? auth()->user()->coins : 0 }};
 
-        // Function to open purchase modal
-        function showPurchaseModal(type, id, title, price, storyId = null, storyTitle = null, comboPrice = null, totalChapterPrice = null) {
+        function showPurchaseModal(type, id, title, price, storyId = null, storyTitle = null, comboPrice = null, totalChapterPrice = null, totalChapters = null, discountPercent = null) {
             const modalTitle = document.getElementById('purchaseModalLabel');
-            const itemTitle = document.getElementById('purchase-item-title');
-            const itemPrice = document.getElementById('purchase-item-price');
-            const comboInfo = document.getElementById('purchase-combo-info');
+            const optionChapterBlock = document.getElementById('option-chapter-block');
+            const optionComboBlock = document.getElementById('option-combo-block');
+            const purchaseDivider = document.getElementById('purchase-divider');
+            const optionChapterPrice = document.getElementById('option-chapter-price');
+            const optionChapterSub = document.getElementById('option-chapter-sub');
+            const optionComboPrice = document.getElementById('option-combo-price');
+            const optionComboSub = document.getElementById('option-combo-sub');
             const itemId = document.getElementById('purchase-item-id');
             const purchaseType = document.getElementById('purchase-type');
             const purchaseForm = document.getElementById('purchase-form');
-            const userBalance = document.getElementById('user-balance');
             const insufficientBalance = document.getElementById('insufficient-balance');
             const confirmBtn = document.getElementById('confirm-purchase-btn');
             const itemIcon = document.getElementById('purchase-item-icon');
-            const purchaseInfoList = document.getElementById('purchase-info-list');
             const modalFooter = document.getElementById('modal-footer');
-            
-            const existingComboBtn = document.getElementById('purchase-combo-btn');
-            if (existingComboBtn) {
-                existingComboBtn.remove();
-            }
 
-            // Update modal content based on purchase type
+            const existingComboBtn = document.getElementById('purchase-combo-btn');
+            if (existingComboBtn) existingComboBtn.remove();
+
+            const fmt = (n) => new Intl.NumberFormat().format(n);
+
             if (type === 'chapter') {
                 modalTitle.textContent = 'Xác nhận mua chương';
-                itemTitle.textContent = title;
                 purchaseForm.action = "{{ route('purchase.chapter') }}";
                 itemId.name = 'chapter_id';
-                itemPrice.innerHTML = 'Bạn cần ủng hộ ' + '<span class="fw-bold color-7">' + new Intl.NumberFormat().format(price) + '</span>' + ' Cám để đọc chương này';
-                itemIcon.innerHTML = '<i class="fas fa-shopping-cart me-1"></i> Mua chương';
-                purchaseInfoList.innerHTML = `
-                    <li>Sau khi mua, bạn có thể <span class="fw-semibold color-7">[Đọc chương]</span> này không giới hạn số lần.</li>
-                    <li>Bạn chỉ bị trừ Cám khi <span class="fw-semibold color-7">[Đọc chương]</span> này lần đầu tiên.</li>
-                    <li>Kiểm tra Cám hiện tại <a href="{{ route('user.profile') }}" class="color-7">Tài khoản</a>. Nạp thêm Cám tại <a href="{{ route('user.bank.auto.deposit') }}" class="color-7">Nạp Cám</a>.</li>
-                `;
-                
-                if (storyId && 
-                    comboPrice && 
-                    Number(comboPrice) > 0 && 
-                    totalChapterPrice && 
-                    Number(totalChapterPrice) > 0 && 
-                    Number(comboPrice) < Number(totalChapterPrice)) {
-                    
+                itemId.value = id;
+
+                // Option 1: Mua chương
+                optionChapterBlock.style.display = 'block';
+                optionChapterPrice.textContent = fmt(price) + ' Nấm';
+
+                if (totalChapterPrice && totalChapters && Number(totalChapters) > 0) {
+                    optionChapterSub.innerHTML = '(Tương đương <span class="sub-highlight">' + fmt(totalChapterPrice) + ' Nấm</span> cho <span class="sub-highlight">' + fmt(totalChapters) + ' chương</span>)';
+                    optionChapterSub.style.display = 'block';
+                } else {
+                    optionChapterSub.style.display = 'none';
+                }
+
+                const hasCombo = storyId && comboPrice && Number(comboPrice) > 0 && totalChapterPrice && Number(totalChapterPrice) > 0 && Number(comboPrice) < Number(totalChapterPrice);
+                if (hasCombo) {
                     const discountPercent = Math.round(((Number(totalChapterPrice) - Number(comboPrice)) / Number(totalChapterPrice)) * 100);
-                    
-                    comboInfo.style.display = 'block';
-                    comboInfo.innerHTML = 'Hoặc ủng hộ <span class="fw-bold color-7">' + new Intl.NumberFormat().format(comboPrice) + '</span> Cám để đọc trọn bộ (<span class="text-danger fw-bold">Giảm ' + discountPercent + '%</span> so với mua lẻ từng chương)';
+                    purchaseDivider.style.display = 'flex';
+                    optionComboBlock.style.display = 'block';
+                    optionComboPrice.textContent = fmt(comboPrice) + ' Nấm';
+                    optionComboSub.innerHTML = '(<span class="discount-highlight">Rẻ hơn ' + discountPercent + '%</span> so với mua lẻ từng chương)';
+                    optionComboSub.style.display = 'block';
+
                     const comboBtn = document.createElement('button');
                     comboBtn.type = 'button';
-                    comboBtn.className = 'btn bg-7 me-2';
+                    comboBtn.className = 'btn bg-1 fw-bold text-dark px-4 btn-lg rounded-4 me-2';
                     comboBtn.id = 'purchase-combo-btn';
-                    comboBtn.innerHTML = '<i class="fas fa-gift me-1"></i> Mua trọn bộ <span class="badge bg-light text-danger ms-1">-' + discountPercent + '%</span>';
-                    
+                    comboBtn.innerHTML = 'Mua trọn bộ <span class="badge bg-light text-danger ms-1">-' + discountPercent + '%</span>';
                     comboBtn.setAttribute('data-story-id', storyId);
                     comboBtn.setAttribute('data-story-title', storyTitle || '');
                     comboBtn.setAttribute('data-combo-price', comboPrice);
-                    
+                    comboBtn.setAttribute('data-total-chapter-price', totalChapterPrice || 0);
+                    comboBtn.setAttribute('data-total-chapters', totalChapters || 0);
                     comboBtn.addEventListener('click', function() {
-                        const storyId = this.getAttribute('data-story-id');
-                        const storyTitle = this.getAttribute('data-story-title');
-                        const comboPrice = parseInt(this.getAttribute('data-combo-price'));
-                        
-                        if (!storyId || !comboPrice) return;
-                        
-                        // Close current modal
-                        try {
-                            bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide();
-                        } catch (e) {
-                            console.warn('Không thể đóng modal:', e);
-                        }
-                        
-                        // Open story combo purchase modal
+                        try { bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide(); } catch (e) {}
+                        const tp = this.getAttribute('data-total-chapter-price');
+                        const tc = this.getAttribute('data-total-chapters');
                         setTimeout(() => {
-                            showPurchaseModal('story', storyId, storyTitle, comboPrice);
+                            showPurchaseModal('story', storyId, storyTitle, comboPrice, null, null, null, tp ? parseInt(tp) : null, tc ? parseInt(tc) : null);
                         }, 300);
                     });
-                    
-                    // Insert before confirm button
-                    const confirmBtn = document.getElementById('confirm-purchase-btn');
                     modalFooter.insertBefore(comboBtn, confirmBtn);
                 } else {
-                    comboInfo.style.display = 'none';
-                    console.log('Combo button not shown - conditions not met');
+                    purchaseDivider.style.display = 'none';
+                    optionComboBlock.style.display = 'none';
                 }
+
+                itemIcon.innerHTML = 'Mua chương';
+                purchaseType.value = 'chapter';
             } else if (type === 'story') {
-                const existingComboBtn = document.getElementById('purchase-combo-btn');
-                if (existingComboBtn) {
-                    existingComboBtn.remove();
-                }
-                comboInfo.style.display = 'none';
+                if (document.getElementById('purchase-combo-btn')) document.getElementById('purchase-combo-btn').remove();
                 modalTitle.textContent = 'Xác nhận mua trọn bộ';
-                itemTitle.textContent = 'Trọn bộ: ' + title;
                 purchaseForm.action = "{{ route('purchase.story.combo') }}";
                 itemId.name = 'story_id';
-                itemPrice.innerHTML = 'Bạn cần ủng hộ ' + '<span class="fw-bold color-7">' + new Intl.NumberFormat().format(price) + '</span>' + ' Cám để đọc truyện này';
-                itemIcon.innerHTML = '<i class="fas fa-shopping-cart me-1"></i> Mua truyện';
-                purchaseInfoList.innerHTML = `
-                    <li>Sau khi mua, bạn có thể <span class="fw-semibold color-7">[Đọc truyện]</span> này không giới hạn số lần.</li>
-                    <li>Sau khi full truyện, bạn sẽ không tốn <span class="fw-semibold color-7">Cám</span> khi đọc các chương lẻ</li>
-                    <li>Kiểm tra Cám hiện tại <a href="{{ route('user.profile') }}" class="color-7">Tài khoản</a>. Nạp thêm Cám tại <a href="{{ route('user.bank.auto.deposit') }}" class="color-7">Nạp Cám</a>.</li>
-                `;
+                itemId.value = id;
+
+                optionChapterBlock.style.display = 'none';
+                purchaseDivider.style.display = 'none';
+                optionComboBlock.style.display = 'block';
+                optionComboPrice.textContent = fmt(price) + ' Nấm';
+                const dp = discountPercent ?? (totalChapterPrice && Number(totalChapterPrice) > 0 && Number(price) < Number(totalChapterPrice)
+                    ? Math.round(((Number(totalChapterPrice) - Number(price)) / Number(totalChapterPrice)) * 100) : null);
+                optionComboSub.innerHTML = dp ? '(<span class="discount-highlight">Rẻ hơn ' + dp + '%</span> so với mua lẻ từng chương)' : '(Rẻ hơn so với mua lẻ từng chương)';
+                optionComboSub.style.display = 'block';
+
+                itemIcon.innerHTML = 'Mua truyện';
+                purchaseType.value = 'story';
             }
 
-            // Update price and ID
-            
-            itemId.value = id;
-            purchaseType.value = type;
-
-            // Check if user has enough balance
-            if (window.userCoins < price) {
+            if (window.userCoins < (type === 'chapter' ? price : price)) {
                 insufficientBalance.classList.remove('d-none');
                 confirmBtn.disabled = true;
             } else {
@@ -239,106 +242,57 @@
                 confirmBtn.disabled = false;
             }
 
-            // Open the modal
-            const purchaseModal = new bootstrap.Modal(document.getElementById('purchaseModal'));
-            purchaseModal.show();
+            new bootstrap.Modal(document.getElementById('purchaseModal')).show();
         }
 
-        // Handle purchase confirmation
         document.getElementById('confirm-purchase-btn').addEventListener('click', function() {
             const purchaseForm = document.getElementById('purchase-form');
             const purchaseType = document.getElementById('purchase-type').value;
             const itemId = document.getElementById('purchase-item-id').value;
-
             if (!itemId) return;
 
-            // Show loading state
             this.disabled = true;
-            this.innerHTML =
-                '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Đang xử lý...';
-
-            // Prepare form data
+            this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang xử lý...';
             const formData = new FormData(purchaseForm);
+            const endpoint = purchaseType === 'chapter' ? "{{ route('purchase.chapter') }}" : "{{ route('purchase.story.combo') }}";
 
-            // Determine the correct endpoint
-            const endpoint = purchaseType === 'chapter' ?
-                "{{ route('purchase.chapter') }}" :
-                "{{ route('purchase.story.combo') }}";
-
-            // Send purchase request
             fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    },
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Try to close modal
-                    try {
-                        bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide();
-                    } catch (e) {
-                        console.warn('Không thể đóng modal:', e);
-                    }
-
-                    if (data.success) {
-                        // Success - show message
-                        Swal.fire({
-                            title: 'Thành công!',
-                            text: data.message || 'Mua thành công! Đang tải nội dung...',
-                            icon: 'success',
-                            confirmButtonText: 'Đọc ngay',
-                            timer: 2000,
-                            timerProgressBar: true
-                        }).then(() => {
-                            // Redirect to the page
-                            if (data.redirect) {
-                                window.location.href = data.redirect;
-                            } else {
-                                window.location.reload();
-                            }
-                        });
-                    } else {
-                        // Error
-                        Swal.fire({
-                            title: 'Lỗi',
-                            text: data.message || 'Có lỗi xảy ra khi xử lý giao dịch.',
-                            icon: 'error',
-                            confirmButtonText: 'Đóng'
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-
-                    // Try to close modal
-                    try {
-                        bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide();
-                    } catch (e) {
-                        console.error('Error closing modal:', e);
-                    }
-
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(r => r.ok ? r.json() : Promise.reject(new Error('Network error')))
+            .then(data => {
+                try { bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide(); } catch (e) {}
+                if (data.success) {
                     Swal.fire({
-                        title: 'Lỗi',
-                        text: 'Có lỗi xảy ra khi kết nối đến máy chủ. Vui lòng thử lại sau.',
-                        icon: 'error',
-                        confirmButtonText: 'Đóng'
+                        title: 'Thành công!',
+                        text: data.message || 'Mua thành công!',
+                        icon: 'success',
+                        confirmButtonText: 'Đọc ngay',
+                        timer: 2000,
+                        timerProgressBar: true
+                    }).then(() => {
+                        if (data.redirect) window.location.href = data.redirect;
+                        else window.location.reload();
                     });
-                })
-                .finally(() => {
-                    // Reset button state
-                    const confirmBtn = document.getElementById('confirm-purchase-btn');
-                    confirmBtn.disabled = false;
-                    confirmBtn.innerHTML = document.getElementById('purchase-item-icon').innerHTML;
-                });
+                } else {
+                    Swal.fire({ title: 'Lỗi', text: data.message || 'Có lỗi xảy ra.', icon: 'error', confirmButtonText: 'Đóng' });
+                }
+            })
+            .catch(() => {
+                try { bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide(); } catch (e) {}
+                Swal.fire({ title: 'Lỗi', text: 'Không kết nối được máy chủ. Vui lòng thử lại.', icon: 'error', confirmButtonText: 'Đóng' });
+            })
+            .finally(() => {
+                const btn = document.getElementById('confirm-purchase-btn');
+                btn.disabled = false;
+                btn.innerHTML = document.getElementById('purchase-item-icon').innerHTML;
+            });
         });
     </script>
 @endpush

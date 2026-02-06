@@ -45,7 +45,7 @@
                             </div>
                             <div class="text-white text-shadow-custom px-4 mt-3 fs-24 fw-bold d-flex align-items-center justify-content-center">
                                 <img class="me-2" src="{{ asset('images/d/cam.png') }}" alt="Coin" style="width: 20px; height: 20px;">
-                                <span>{{ number_format(Auth::user()->coins) }} Cám </span>
+                                <span>{{ number_format(Auth::user()->coins) }} Nấm </span>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                             <a href="{{ route('user.bank.auto.deposit') }}"
                                 class="user-nav-link text-decoration-none hover-color-7 {{ request()->routeIs('user.bank.auto.deposit*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-coins user-nav-icon"></i>
-                                <span class="user-nav-text">Nạp cám</span>
+                                <span class="user-nav-text">Nạp nấm</span>
                             </a>
                         </div>
 
@@ -149,7 +149,7 @@
                             <a href="{{ route('user.coin-history') }}"
                                 class="user-nav-link text-decoration-none hover-color-7 {{ request()->routeIs('user.coin-history') ? 'active' : '' }}">
                                 <i class="fa-solid fa-history user-nav-icon"></i>
-                                <span class="user-nav-text">Lịch sử cám</span>
+                                <span class="user-nav-text">Lịch sử nấm</span>
                             </a>
                         </div>
 
@@ -157,7 +157,7 @@
                             <a href="{{ route('user.donate') }}"
                                 class="user-nav-link text-decoration-none hover-color-7 {{ request()->routeIs('user.donate*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-heart user-nav-icon"></i>
-                                <span class="user-nav-text">Donate cám</span>
+                                <span class="user-nav-text">Donate nấm</span>
                             </a>
                         </div>
 

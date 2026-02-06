@@ -1,10 +1,10 @@
 @extends('layouts.information')
 
-@section('info_title', 'Nạp cám bằng thẻ cào')
-@section('info_description', 'Nạp cám bằng thẻ cào điện thoại trên ' . request()->getHost())
-@section('info_keyword', 'nạp cám, thẻ cào, ' . request()->getHost())
-@section('info_section_title', 'Nạp cám bằng thẻ cào')
-@section('info_section_desc', 'Nạp cám bằng thẻ cào điện thoại Viettel, Mobifone, Vinaphone')
+@section('info_title', 'Nạp nấm bằng thẻ cào')
+@section('info_description', 'Nạp nấm bằng thẻ cào điện thoại trên ' . request()->getHost())
+@section('info_keyword', 'nạp nấm, thẻ cào, ' . request()->getHost())
+@section('info_section_title', 'Nạp nấm bằng thẻ cào')
+@section('info_section_desc', 'Nạp nấm bằng thẻ cào điện thoại Viettel, Mobifone, Vinaphone')
 
 @push('styles')
     <style>
@@ -113,22 +113,22 @@
                         <div class="deposit-coin-preview mb-3">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <div class="small opacity-75">Cám nhận được:</div>
+                                    <div class="small opacity-75">Nấm nhận được:</div>
                                     <div class="h4 mb-0">
                                         <i class="fas fa-coins me-2"></i>
-                                        <span id="totalCoinsPreview">0</span> cám
+                                        <span id="totalCoinsPreview">0</span> nấm
                                     </div>
                                     <div class="coin-breakdown mt-2">
                                         <div class="row">
                                             <div class="col-6">
                                                 <small class="text-white fw-bold">
-                                                    <i class="fas fa-coins me-1"></i>Cám cộng:
+                                                    <i class="fas fa-coins me-1"></i>Nấm cộng:
                                                     <span id="baseCoinsPreview">0</span>
                                                 </small>
                                             </div>
                                             <div class="col-6">
                                                 <small class="color-text fw-bold">
-                                                    <i class="fas fa-gift me-1"></i>Cám tặng:
+                                                    <i class="fas fa-gift me-1"></i>Nấm tặng:
                                                     <span id="bonusCoinsPreview">0</span>
                                                 </small>
                                             </div>
@@ -192,7 +192,7 @@
                                     phí phạt trên mệnh giá thực của thẻ.
                                 </li>
                                 <li class="text-warning">
-                                    <strong>Ví dụ:</strong> Thẻ 100k nhưng thực tế chỉ có 50k → Nhận được cám tương ứng với
+                                    <strong>Ví dụ:</strong> Thẻ 100k nhưng thực tế chỉ có 50k → Nhận được nấm tương ứng với
                                     25k (50k - 50% phạt - phí hệ thống)
                                 </li>
                             </ul>
@@ -214,15 +214,15 @@
                     <!-- Bảng mức nạp tiền -->
                     <div class="deposit-table">
                         <h6 class="text-dark mb-3">
-                            Mức quy định đổi cám hiên tại:
+                            Mức quy định đổi nấm hiên tại:
                         </h6>
                         <div class="table-responsive">
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Mệnh giá thẻ</th>
-                                        <th class="text-center">Cám cộng</th>
-                                        <th class="text-center">Cám tặng</th>
+                                        <th class="text-center">Nấm cộng</th>
+                                        <th class="text-center">Nấm tặng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -231,7 +231,7 @@
                                     @endphp
                                     @foreach ($cardAmounts as $cardAmount)
                                         @php
-                                            // Tính toán cám cơ bản
+                                            // Tính toán nấm cơ bản
                                             $feeAmount = ($cardAmount * $coinCardPercent) / 100;
                                             $amountAfterFee = $cardAmount - $feeAmount;
                                             $baseCoins = floor($amountAfterFee / $coinExchangeRate);
@@ -280,13 +280,13 @@
                                             <i class="fas fa-money-bill me-1"></i>Mệnh giá
                                         </th>
                                         <th>
-                                            <i class="fas fa-coins me-1"></i>Cám cộng
+                                            <i class="fas fa-coins me-1"></i>Nấm cộng
                                         </th>
                                         <th>
-                                            <i class="fas fa-gift me-1"></i>Cám tặng
+                                            <i class="fas fa-gift me-1"></i>Nấm tặng
                                         </th>
                                         <th>
-                                            <i class="fas fa-coins me-1"></i>Tổng cám
+                                            <i class="fas fa-coins me-1"></i>Tổng nấm
                                         </th>
                                         <th>
                                             <i class="fas fa-clock me-1"></i>Thời gian
@@ -307,9 +307,9 @@
                                             <td>{{ $deposit->card_type_text }}</td>
                                             <td>{{ $deposit->amount_formatted }}</td>
 
-                                            {{-- Cột cám cộng --}}
+                                            {{-- Cột nấm cộng --}}
                                             <td>
-                                                <strong>{{ number_format($deposit->coins) }} cám</strong>
+                                                <strong>{{ number_format($deposit->coins) }} nấm</strong>
 
                                                 @if ($deposit->status === 'success')
                                                     <br>
@@ -327,18 +327,18 @@
                                                 @endif
                                             </td>
 
-                                            {{-- Cột cám tặng --}}
+                                            {{-- Cột nấm tặng --}}
                                             <td>
                                                 @if(isset($deposit->bonus_coins) && $deposit->bonus_coins > 0)
-                                                    <span class="text-success">+{{ number_format($deposit->bonus_coins) }} cám</span>
+                                                    <span class="text-success">+{{ number_format($deposit->bonus_coins) }} nấm</span>
                                                 @else
                                                     <span class="text-muted">-</span>
                                                 @endif
                                             </td>
 
-                                            {{-- Cột tổng cám --}}
+                                            {{-- Cột tổng nấm --}}
                                             <td>
-                                                <strong>{{ number_format($deposit->coins) }} cám</strong>
+                                                <strong>{{ number_format($deposit->coins) }} nấm</strong>
                                             </td>
 
                                             <td>
@@ -446,7 +446,7 @@
                 updateCoinsPreview();
             });
 
-            // Cập nhật preview cám
+            // Cập nhật preview nấm
             function updateCoinsPreview() {
                 const amount = parseInt($('#cardAmount').val()) || 0;
                 if (amount > 0) {
@@ -579,8 +579,8 @@
                                 <div class="col-8">${feeAmount.toLocaleString()} VNĐ (${coinCardPercent}%)</div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-4"><strong>Cám nhận được:</strong></div>
-                                <div class="col-8 text-primary"><strong>${coins.toLocaleString()} cám</strong></div>
+                                <div class="col-4"><strong>Nấm nhận được:</strong></div>
+                                <div class="col-8 text-primary"><strong>${coins.toLocaleString()} nấm</strong></div>
                             </div>
                         </div>
                         <div class="alert alert-warning mt-3 mb-0">
@@ -624,10 +624,10 @@
 
                             if (response.status == 1) {
                                 title = 'Nạp thẻ thành công!';
-                                text = 'Thẻ hợp lệ và cám đã được cộng vào tài khoản.';
+                                text = 'Thẻ hợp lệ và nấm đã được cộng vào tài khoản.';
                             } else if (response.status == 2) {
                                 title = 'Thẻ đúng nhưng sai mệnh giá!';
-                                text = 'Cám sẽ được cộng theo mệnh giá thực của thẻ.';
+                                text = 'Nấm sẽ được cộng theo mệnh giá thực của thẻ.';
                             } else if (response.status == 99) {
                                 icon = 'info';
                                 title = 'Thẻ đang xử lý!';
@@ -762,7 +762,7 @@
                             <div class="col-8">${deposit.amount}</div>
                         </div>
                         <div class="row">
-                            <div class="col-4"><strong>Cám nhận:</strong></div>
+                            <div class="col-4"><strong>Nấm nhận:</strong></div>
                             <div class="col-8">${deposit.coins}</div>
                         </div>
                         <div class="row">

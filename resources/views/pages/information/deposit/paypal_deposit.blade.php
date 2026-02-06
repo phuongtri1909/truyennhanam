@@ -1,11 +1,11 @@
 {{-- filepath: resources/views/pages/information/deposit/paypal_deposit.blade.php --}}
 @extends('layouts.information')
 
-@section('info_title', 'Nạp cám bằng PayPal')
-@section('info_description', 'Nạp cám bằng PayPal trên ' . request()->getHost())
-@section('info_keyword', 'nạp cám, paypal, ' . request()->getHost())
-@section('info_section_title', 'Nạp cám bằng PayPal')
-@section('info_section_desc', 'Nạp cám bằng PayPal một cách nhanh chóng và an toàn')
+@section('info_title', 'Nạp nấm bằng PayPal')
+@section('info_description', 'Nạp nấm bằng PayPal trên ' . request()->getHost())
+@section('info_keyword', 'nạp nấm, paypal, ' . request()->getHost())
+@section('info_section_title', 'Nạp nấm bằng PayPal')
+@section('info_section_desc', 'Nạp nấm bằng PayPal một cách nhanh chóng và an toàn')
 
 @push('styles')
     <style>
@@ -76,7 +76,7 @@
             <div class="paypal-form">
                 <div class="text-center mb-4">
                     <i class="fab fa-paypal fa-4x mb-3"></i>
-                    <h4 class="mb-0">Nạp cám bằng PayPal</h4>
+                    <h4 class="mb-0">Nạp nấm bằng PayPal</h4>
                     <p class="mb-0 opacity-75">Thanh toán nhanh chóng và an toàn</p>
                 </div>
 
@@ -177,16 +177,16 @@
                             <span id="previewTotalUSD">$5.00</span>
                         </div>
                         <div class="preview-item">
-                            <span>Cám nhận được:</span>
-                            <span id="previewTotalCoins">1,000 cám</span>
+                            <span>Nấm nhận được:</span>
+                            <span id="previewTotalCoins">1,000 nấm</span>
                         </div>
                         <div class="preview-item">
-                            <span>Cám cộng:</span>
-                            <span id="previewBaseCoins">1,000 cám</span>
+                            <span>Nấm cộng:</span>
+                            <span id="previewBaseCoins">1,000 nấm</span>
                         </div>
                         <div class="preview-item">
-                            <span>Cám tặng:</span>
-                            <span id="previewBonusCoins">0 cám</span>
+                            <span>Nấm tặng:</span>
+                            <span id="previewBonusCoins">0 nấm</span>
                         </div>
                         <div class="preview-item">
                             <span>Loại thanh toán:</span>
@@ -208,15 +208,15 @@
                     <!-- Bảng mức nạp tiền -->
                     <div class="deposit-table">
                         <h6 class="text-dark mb-3">
-                            Mức quy định đổi cám hiên tại:
+                            Mức quy định đổi nấm hiên tại:
                         </h6>
                         <div class="table-responsive">
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Số tiền USD</th>
-                                        <th class="text-center">Cám cộng</th>
-                                        <th class="text-center">Cám tặng</th>
+                                        <th class="text-center">Nấm cộng</th>
+                                        <th class="text-center">Nấm tặng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -226,7 +226,7 @@
                                     @foreach ($usdAmounts as $usdAmount)
                                         @php
                                             $vndAmount = $usdAmount * $coinPaypalRate;
-                                            // Tính toán cám cơ bản
+                                            // Tính toán nấm cơ bản
                                             $feeAmount = ($vndAmount * $coinPaypalPercent) / 100;
                                             $amountAfterFee = $vndAmount - $feeAmount;
                                             $baseCoins = floor($amountAfterFee / $coinExchangeRate);
@@ -277,7 +277,7 @@
                         <div class="col-md-4 text-center">
                             <div class="fw-bold text-success fs-5">
                                 ${{ number_format($latestPendingRequest->usd_amount, 2) }}</div>
-                            <div class="text-muted">{{ number_format($latestPendingRequest->coins) }} cám</div>
+                            <div class="text-muted">{{ number_format($latestPendingRequest->coins) }} nấm</div>
                             <small class="text-muted">{{ $latestPendingRequest->created_at->format('d/m/Y H:i') }}</small>
                         </div>
                         <div class="col-md-4 text-center">
@@ -327,9 +327,9 @@
                                     <tr>
                                         <th>Mã giao dịch</th>
                                         <th>Số tiền USD</th>
-                                        <th>Cám cộng</th>
-                                        <th>Cám tặng</th>
-                                        <th>Tổng cám</th>
+                                        <th>Nấm cộng</th>
+                                        <th>Nấm tặng</th>
+                                        <th>Tổng nấm</th>
                                         <th>Thời gian</th>
                                         <th>Trạng thái</th>
                                         <th>Thao tác</th>
@@ -420,7 +420,7 @@
                         <div class="text-center py-5">
                             <i class="fab fa-paypal fa-3x text-muted mb-3"></i>
                             <h5>Chưa có giao dịch PayPal nào</h5>
-                            <p class="text-muted">Hãy thực hiện giao dịch đầu tiên để nạp cám vào tài khoản</p>
+                            <p class="text-muted">Hãy thực hiện giao dịch đầu tiên để nạp nấm vào tài khoản</p>
                         </div>
                     @endif
                 </div>
@@ -465,8 +465,8 @@
                             <div class="fw-bold text-primary" id="confirmAmount">$5.00</div>
                         </div>
                         <div class="col-6">
-                            <small class="text-muted">Cám nhận được:</small>
-                            <div class="fw-bold text-success" id="confirmCoins">1,000 cám</div>
+                            <small class="text-muted">Nấm nhận được:</small>
+                            <div class="fw-bold text-success" id="confirmCoins">1,000 nấm</div>
                         </div>
                     </div>
 
@@ -650,9 +650,9 @@
                 $('#previewBaseUSD').text('$' + baseUsdAmount.toFixed(2));
                 $('#previewMethodFee').text('$' + methodFee.toFixed(2));
                 $('#previewTotalUSD').text('$' + totalUsdAmount.toFixed(2));
-                $('#previewBaseCoins').text(baseCoins.toLocaleString('vi-VN') + ' cám');
-                $('#previewBonusCoins').text(bonusCoins.toLocaleString('vi-VN') + ' cám');
-                $('#previewTotalCoins').text(totalCoins.toLocaleString('vi-VN') + ' cám');
+                $('#previewBaseCoins').text(baseCoins.toLocaleString('vi-VN') + ' nấm');
+                $('#previewBonusCoins').text(bonusCoins.toLocaleString('vi-VN') + ' nấm');
+                $('#previewTotalCoins').text(totalCoins.toLocaleString('vi-VN') + ' nấm');
                 $('#previewPaymentMethod').text(paymentMethodText);
 
                 // Highlight total amount if there's a method fee
@@ -758,7 +758,7 @@
             function showConfirmModal(data) {
                 $('#confirmPaymentContent').text(data.payment_content);
                 $('#confirmAmount').text(data.usd_amount_formatted);
-                $('#confirmCoins').text(data.coins.toLocaleString() + ' cám');
+                $('#confirmCoins').text(data.coins.toLocaleString() + ' nấm');
 
                 // Add payment method info to modal
                 const paymentMethodBadge = data.payment_method === 'goods_services' ?

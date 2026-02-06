@@ -272,94 +272,53 @@
                     @endif
 
                     @if ($stories->total() > 0)
-                        <p class="text-muted small">Tìm thấy {{ $stories->total() }} truyện</p>
+                        <p class="text-muted small mb-3">Tìm thấy {{ $stories->total() }} truyện</p>
                     @else
-                        <p class="text-muted">Không tìm thấy truyện phù hợp</p>
+                        <p class="text-muted mb-3">Không tìm thấy truyện phù hợp</p>
                     @endif
 
-                    @foreach ($stories as $story)
-                        <div class="story-item border-bottom pb-3 pt-3">
-                            <div class="row">
-                                <div class="col-5 col-sm-3 col-lg-2">
-                                    <a href="{{ route('show.page.story', $story->slug) }}"
-                                        class="h-100 w-100 d-inline-block">
-                                        <img src="{{ Storage::url($story->cover) }}" alt="{{ $story->title }}"
-                                            class="img-fluid rounded"
-                                            style="width: 100%; height: 180px; object-fit: cover;">
-                                    </a>
-                                </div>
-                                <div class="col-7 col-sm-9 col-lg-10">
-                                    <h6 class="h6 mb-1">
-                                        <a href="{{ route('show.page.story', $story->slug) }}"
-                                            class="text-dark text-decoration-none">
+                    <div class="search-stories-grid">
+                        @forelse ($stories as $story)
+                            <div class="search-story-card">
+                                <a href="{{ route('show.page.story', $story->slug) }}" class="search-story-item d-flex text-decoration-none p-2 rounded">
+                                    <div class="search-story-thumb flex-shrink-0 position-relative">
+                                        <img src="{{ $story->cover ? Storage::url($story->cover) : asset('assets/images/story_default.jpg') }}"
+                                            alt="{{ $story->title }}" class="search-story-img">
+                                        <span class="search-story-overlay">{{ Str::upper(Str::limit($story->title, 25)) }}</span>
+                                        @if ($story->completed)
+                                            <span class="search-badge-full">Full</span>
+                                        @endif
+                                    </div>
+                                    <div class="search-story-body flex-grow-1 min-w-0 ps-3">
+                                        <h6 class="search-story-title mb-2 text-dark fw-bold">
                                             {{ $story->title }}
-                                        </a>
-                                    </h6>
-                                    @if (auth()->check() && auth()->user()->role != 'user')
-                                        <span class="small text-muted mt-2"><i class="fa-solid fa-user"></i> Tác giả:
-                                            {{ $story->author_name }}</span>
-                                    @endif
-
-                                    <div class="d-flex flex-wrap gap-1 my-2 text-sm">
-                                        @php
-                                            $mainCategories = $story->categories->where('is_main', true);
-                                            $subCategories = $story->categories->where('is_main', false);
-                                            $displayCategories = collect();
-
-                                            if ($mainCategories->isNotEmpty()) {
-                                                foreach ($mainCategories->take(2) as $category) {
-                                                    $displayCategories->push($category);
-                                                }
-
-                                                if ($displayCategories->count() === 1 && $subCategories->isNotEmpty()) {
-                                                    $displayCategories->push($subCategories->first());
-                                                }
-                                            } else {
-                                                foreach ($subCategories->take(2) as $category) {
-                                                    $displayCategories->push($category);
-                                                }
-                                            }
-                                        @endphp
-
-
-                                        @foreach ($displayCategories as $category)
-                                            <span
-                                                class="badge bg-1 text-white small rounded-pill d-flex align-items-center">{{ $category->name }}</span>
-                                        @endforeach
-
+                                        </h6>
+                                        @if ($story->categories && $story->categories->isNotEmpty())
+                                            <div class="search-story-tags d-flex flex-wrap gap-1 mb-2">
+                                                @foreach ($story->categories->take(3) as $cat)
+                                                    <span class="search-story-tag">{{ $cat->name }}</span>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                        <p class="search-story-desc mb-0">
+                                            {{ cleanDescription($story->description ?? '', 400) ?: 'Đang cập nhật...' }}
+                                        </p>
                                     </div>
-
-                                    <div class="d-flex small text-muted">
-                                        <div class="me-3">
-                                            <i class="fas fa-eye me-1 text-primary"></i>
-                                            {{ number_format($story->total_views) }}
-                                        </div>
-                                        <div class="me-3">
-                                            <i class="fas fa-star me-1 text-warning"></i>
-                                            {{ number_format($story->average_rating ?? 0, 1) }}
-                                        </div>
-                                        <div class="me-3">
-                                            <i class="fas fa-bookmark me-1 text-danger"></i>
-                                            {{ number_format($story->bookmarks_count ?? 0) }}
-                                        </div>
-                                        
-                                    </div>
-                                    <div>
-                                        <i
-                                            class="fas fa-{{ $story->completed ? 'check-circle' : 'clock' }} me-1 {{ $story->completed ? 'text-success' : 'text-warning' }}"></i>
-                                        {{ $story->completed ? 'Hoàn thành' : 'Đang cập nhật' }}
-                                    </div>
-                                    <div class="story-description mt-2 small text-muted d-none d-md-block">
-                                        {{ cleanDescription($story->description, 200) }}
-                                    </div>
-                                </div>
+                                </a>
                             </div>
-                        </div>
-                    @endforeach
-
-                    <div class="d-flex justify-content-center mt-4">
-                        <x-pagination :paginator="$stories" />
+                        @empty
+                            <div class="search-story-empty text-center py-5 text-muted" style="grid-column: 1 / -1;">
+                                <i class="fas fa-book-open fa-3x mb-3"></i>
+                                <p class="mb-0">Không tìm thấy truyện phù hợp.</p>
+                            </div>
+                        @endforelse
                     </div>
+
+                    @if ($stories->hasPages())
+                        <div class="d-flex justify-content-center mt-4">
+                            <x-pagination :paginator="$stories" />
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -449,6 +408,81 @@
              color: var(--primary-color-3);
              transform: translateY(-1px);
          }
+
+         /* Danh sách truyện - giống trang dịch giả */
+         .search-stories-grid {
+             display: grid;
+             gap: 0.75rem;
+         }
+         @media (min-width: 768px) {
+             .search-stories-grid {
+                 grid-template-columns: 1fr 1fr;
+                 gap: 1.5rem;
+             }
+         }
+         .search-story-item { transition: opacity 0.2s; }
+         .search-story-item:hover { opacity: 0.9; }
+         .search-story-thumb {
+             width: 90px;
+             height: 120px;
+             border-radius: 0.5rem;
+             overflow: hidden;
+         }
+         .search-story-img { width: 100%; height: 100%; object-fit: cover; }
+         .search-story-overlay {
+             position: absolute;
+             top: 0; left: 0; right: 0;
+             padding: 4px 6px;
+             background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+             color: #fff;
+             font-size: 0.65rem;
+             font-weight: 600;
+             line-height: 1.3;
+             overflow: hidden;
+             display: -webkit-box;
+             -webkit-line-clamp: 2;
+             -webkit-box-orient: vertical;
+         }
+         .search-badge-full {
+             position: absolute;
+             bottom: 0; left: 0;
+             background: var(--success-color, #28a745);
+             color: #fff;
+             font-size: 0.65rem;
+             font-weight: 600;
+             padding: 2px 6px;
+             z-index: 2;
+         }
+         .search-story-title {
+             font-size: 0.95rem;
+             overflow: hidden;
+             display: -webkit-box;
+             -webkit-line-clamp: 2;
+             -webkit-box-orient: vertical;
+         }
+         .search-story-tag {
+             display: inline-block;
+             padding: 2px 8px;
+             color: #6b7280;
+             font-size: 0.7rem;
+             border-radius: 4px;
+             border: 1px solid var(--primary-color-1);
+         }
+         .search-story-desc {
+             font-size: 0.8rem;
+             line-height: 1.5;
+             color: #000;
+             overflow: hidden;
+             display: -webkit-box;
+             -webkit-line-clamp: 6;
+             -webkit-box-orient: vertical;
+         }
+         @media (min-width: 768px) {
+             .search-story-thumb { width: 100px; height: 135px; }
+         }
+         body.dark-mode .search-story-title { color: #e0e0e0 !important; }
+         body.dark-mode .search-story-tag { background: #404040; color: #9ca3af; }
+         body.dark-mode .search-story-desc { color: #9ca3af; }
     </style>
 @endpush
 

@@ -37,7 +37,7 @@
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="globalPrice" value="0"
                                             min="0" step="1" required>
-                                        <span class="input-group-text">Cám</span>
+                                        <span class="input-group-text">Nấm</span>
                                     </div>
                                 </div>
 
@@ -118,7 +118,7 @@
                         <label class="form-label">Giá riêng</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="individualPrice" min="0">
-                            <span class="input-group-text">Cám</span>
+                            <span class="input-group-text">Nấm</span>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -335,8 +335,8 @@
                     </td>
                     <td>
                         ${chapter.settings.customPrice !== null ? 
-                            `<span class="text-warning">${chapter.settings.customPrice.toLocaleString()} Cám</span>` : 
-                            `<span class="text-info">${chapter.settings.price.toLocaleString()} Cám</span>`}
+                            `<span class="text-warning">${chapter.settings.customPrice.toLocaleString()} Nấm</span>` : 
+                            `<span class="text-info">${chapter.settings.price.toLocaleString()} Nấm</span>`}
                     </td>
                     <td>
                         ${chapter.settings.publishNow ? 

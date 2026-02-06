@@ -61,7 +61,7 @@
                     <div class="col-6 col-md-3">
                         <div class="author-form-card p-2 text-center">
                             <div class="small text-muted">Doanh thu</div>
-                            <div class="fw-bold">{{ number_format($total_revenue) }} cám</div>
+                            <div class="fw-bold">{{ number_format($total_revenue) }} nấm</div>
                         </div>
                     </div>
                 </div>
@@ -69,9 +69,9 @@
                 @if($story->has_combo)
                 <div class="alert alert-info py-2 px-3 mb-3">
                     <h6 class="mb-2"><i class="fa-solid fa-tag me-1"></i> Thông tin combo</h6>
-                    <p class="mb-1 small">- Giá combo: <strong>{{ number_format($story->combo_price) }}</strong> cám</p>
-                    <p class="mb-1 small">- Tổng giá mua lẻ: <strong>{{ number_format($story->total_chapter_price) }}</strong> cám</p>
-                    <p class="mb-0 small">- Tiết kiệm: <strong>{{ number_format($story->total_chapter_price - $story->combo_price) }}</strong> cám ({{ $story->discount_percentage }}%)</p>
+                    <p class="mb-1 small">- Giá combo: <strong>{{ number_format($story->combo_price) }}</strong> nấm</p>
+                    <p class="mb-1 small">- Tổng giá mua lẻ: <strong>{{ number_format($story->total_chapter_price) }}</strong> nấm</p>
+                    <p class="mb-0 small">- Tiết kiệm: <strong>{{ number_format($story->total_chapter_price - $story->combo_price) }}</strong> nấm ({{ $story->discount_percentage }}%)</p>
                 </div>
                 @endif
 
@@ -137,7 +137,7 @@
                         <tr>
                             <td>{{ $purchase->id }}</td>
                             <td>{{ $purchase->user->name ?? 'N/A' }}</td>
-                            <td>{{ number_format($purchase->amount_paid) }} cám</td>
+                            <td>{{ number_format($purchase->amount_paid) }} nấm</td>
                             <td>{{ $purchase->created_at->format('d/m/Y H:i') }}</td>
                         </tr>
                         @empty
@@ -170,7 +170,7 @@
                             <td>{{ $purchase->id }}</td>
                             <td>{{ $purchase->user->name ?? 'N/A' }}</td>
                             <td>Chương {{ $purchase->chapter->number }}: {{ Str::limit($purchase->chapter->title, 25) }}</td>
-                            <td>{{ number_format($purchase->amount_paid) }} cám</td>
+                            <td>{{ number_format($purchase->amount_paid) }} nấm</td>
                             <td>{{ $purchase->created_at->format('d/m/Y H:i') }}</td>
                         </tr>
                         @empty

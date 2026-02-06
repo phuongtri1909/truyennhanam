@@ -76,7 +76,7 @@
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder">Email</th>
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder">Vai trò</th>
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder">IP</th>
-                                    <th class="text-center text-uppercase text-xxs font-weight-bolder">Số cám</th>
+                                    <th class="text-center text-uppercase text-xxs font-weight-bolder">Số nấm</th>
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder">Ngày tạo</th>
                                     <th
                                         class="text-center text-uppercase  text-xxs font-weight-bolder ">
@@ -125,7 +125,7 @@
                                         <p class="text-xs font-weight-bold mb-0">{{ $user->ip_address ?: '—' }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ number_format($user->coins ?? 0) }} cám</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ number_format($user->coins ?? 0) }} nấm</p>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-xs font-weight-bold mb-0">{{ $user->created_at?->format('d/m/Y H:i') ?? '—' }}</p>

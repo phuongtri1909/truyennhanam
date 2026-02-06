@@ -213,7 +213,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <h5 class="text-white mb-0">{{ number_format($stats['balance']) }}</h5>
-                                            <p class="mb-0 text-sm">Số cám hiện tại</p>
+                                            <p class="mb-0 text-sm">Số nấm hiện tại</p>
                                         </div>
                                         <div class="icon-shape bg-white text-center rounded-circle shadow">
                                             <i class="fas fa-coins text-primary"></i>
@@ -228,7 +228,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <h5 class="text-white mb-0">{{ number_format($stats['total_deposits']) }}</h5>
-                                            <p class="mb-0 text-sm">Tổng cám đã nạp</p>
+                                            <p class="mb-0 text-sm">Tổng nấm đã nạp</p>
                                         </div>
                                         <div class="icon-shape bg-white text-center rounded-circle shadow">
                                             <i class="fas fa-wallet text-success"></i>
@@ -243,7 +243,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <h5 class="text-white mb-0">{{ number_format($stats['total_spent']) }}</h5>
-                                            <p class="mb-0 text-sm">Tổng cám đã chi</p>
+                                            <p class="mb-0 text-sm">Tổng nấm đã chi</p>
                                         </div>
                                         <div class="icon-shape bg-white text-center rounded-circle shadow">
                                             <i class="fas fa-shopping-cart text-danger"></i>
@@ -280,13 +280,13 @@
                         @if (auth()->user()->role === 'admin_main')
                             <li class="nav-item">
                                 <a class="nav-link active" data-bs-toggle="tab" href="#deposits" role="tab">
-                                    <i class="fas fa-wallet me-1"></i> Nạp cám (Bank)
+                                    <i class="fas fa-wallet me-1"></i> Nạp nấm (Bank)
                                     <span class="badge bg-primary rounded-pill">{{ $counts['deposits'] }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#bank-auto-deposits" role="tab">
-                                    <i class="fas fa-university me-1"></i> Nạp cám (Bank Auto)
+                                    <i class="fas fa-university me-1"></i> Nạp nấm (Bank Auto)
                                     <span
                                         class="badge bg-primary rounded-pill">{{ $counts['bank_auto_deposits'] ?? 0 }}</span>
                                 </a>
@@ -330,13 +330,13 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#coin-transactions" role="tab">
-                                <i class="fas fa-coins me-1"></i> Cộng/Trừ cám
+                                <i class="fas fa-coins me-1"></i> Cộng/Trừ nấm
                                 <span class="badge bg-primary rounded-pill">{{ $counts['coin_transactions'] }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#coin-history" role="tab">
-                                <i class="fas fa-history me-1"></i> Lịch sử cám
+                                <i class="fas fa-history me-1"></i> Lịch sử nấm
                                 <span class="badge bg-info rounded-pill">{{ $counts['coin_histories'] ?? 0 }}</span>
                             </a>
                         </li>
@@ -355,7 +355,7 @@
                                                 <th>Ngân hàng</th>
                                                 <th>Mã giao dịch</th>
                                                 <th>Số tiền</th>
-                                                <th>Số cám</th>
+                                                <th>Số nấm</th>
                                                 <th>Trạng thái</th>
                                                 <th>Ngày nạp</th>
                                                 <th>Ngày duyệt</th>
@@ -384,7 +384,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="8" class="text-center">Chưa có giao dịch nạp cám</td>
+                                                    <td colspan="8" class="text-center">Chưa có giao dịch nạp nấm</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -412,7 +412,7 @@
                                                 <th>Ngân hàng</th>
                                                 <th>Mã giao dịch</th>
                                                 <th>Số tiền</th>
-                                                <th>Số cám</th>
+                                                <th>Số nấm</th>
                                                 <th>Trạng thái</th>
                                                 <th>Ngày nạp</th>
                                                 <th>Ngày xử lý</th>
@@ -443,7 +443,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="8" class="text-center">Chưa có giao dịch nạp cám Bank
+                                                    <td colspan="8" class="text-center">Chưa có giao dịch nạp nấm Bank
                                                         Auto</td>
                                                 </tr>
                                             @endforelse
@@ -472,7 +472,7 @@
                                                 <th>ID</th>
                                                 <th>Mã giao dịch</th>
                                                 <th>Số tiền USD</th>
-                                                <th>Số cám</th>
+                                                <th>Số nấm</th>
                                                 <th>Trạng thái</th>
                                                 <th>Ngày nạp</th>
                                                 <th>Ngày duyệt</th>
@@ -524,7 +524,7 @@
                                                 <th>Loại thẻ</th>
                                                 <th>Serial</th>
                                                 <th>Mệnh giá</th>
-                                                <th>Số cám</th>
+                                                <th>Số nấm</th>
                                                 <th>Trạng thái</th>
                                                 <th>Ngày nạp</th>
                                             </tr>
@@ -571,7 +571,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Truyện</th>
-                                                <th>Số cám</th>
+                                                <th>Số nấm</th>
                                                 <th>Ngày mua</th>
                                             </tr>
                                         </thead>
@@ -617,7 +617,7 @@
                                                 <th>ID</th>
                                                 <th>Truyện</th>
                                                 <th>Chương</th>
-                                                <th>Số cám</th>
+                                                <th>Số nấm</th>
                                                 <th>Ngày mua</th>
                                             </tr>
                                         </thead>
@@ -773,7 +773,7 @@
                             <div class="d-flex justify-content-end mt-3">
                                 <a href="{{ route('admin.coins.create', $user->id) }}"
                                     class="btn bg-gradient-primary btn-sm">
-                                    <i class="fas fa-plus me-1"></i> Cộng/Trừ cám
+                                    <i class="fas fa-plus me-1"></i> Cộng/Trừ nấm
                                 </a>
                             </div>
                             <div class="table-responsive mt-3">
@@ -782,7 +782,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Loại giao dịch</th>
-                                            <th>Số cám</th>
+                                            <th>Số nấm</th>
                                             <th>Admin thực hiện</th>
                                             <th>Ghi chú</th>
                                             <th>Thời gian</th>
@@ -794,9 +794,9 @@
                                                 <td>{{ $transaction->id }}</td>
                                                 <td>
                                                     @if ($transaction->type === 'add')
-                                                        <span class="badge bg-success">Cộng cám</span>
+                                                        <span class="badge bg-success">Cộng nấm</span>
                                                     @else
-                                                        <span class="badge bg-danger">Trừ cám</span>
+                                                        <span class="badge bg-danger">Trừ nấm</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ number_format($transaction->amount) }}</td>
@@ -806,7 +806,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">Chưa có giao dịch cám nào</td>
+                                                <td colspan="6" class="text-center">Chưa có giao dịch nấm nào</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -833,7 +833,7 @@
                                             <th>Thời gian</th>
                                             <th>Loại giao dịch</th>
                                             <th>Mô tả</th>
-                                            <th>Số cám</th>
+                                            <th>Số nấm</th>
                                             <th>Số dư trước</th>
                                             <th>Số dư sau</th>
                                             <th>IP</th>
@@ -869,16 +869,16 @@
                                                 <td>
                                                     <span
                                                         class="fw-bold text-{{ $history->type == 'add' ? 'success' : 'danger' }}">
-                                                        {{ $history->formatted_amount }} cám
+                                                        {{ $history->formatted_amount }} nấm
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span class="fw-bold">{{ number_format($history->balance_before) }}
-                                                        cám</span>
+                                                        nấm</span>
                                                 </td>
                                                 <td>
                                                     <span class="fw-bold">{{ number_format($history->balance_after) }}
-                                                        cám</span>
+                                                        nấm</span>
                                                 </td>
                                                 <td>
                                                     <small class="text-muted">{{ $history->ip_address }}</small>
@@ -889,7 +889,7 @@
                                                 <td colspan="7" class="text-center py-4">
                                                     <div class="text-muted">
                                                         <i class="fas fa-inbox fa-3x mb-3"></i>
-                                                        <p>Chưa có lịch sử cám nào</p>
+                                                        <p>Chưa có lịch sử nấm nào</p>
                                                     </div>
                                                 </td>
                                             </tr>

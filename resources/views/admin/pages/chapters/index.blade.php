@@ -74,7 +74,7 @@
                                     </th>
 
                                     <th class="text-uppercase  text-xxs font-weight-bolder ">
-                                        Số cám
+                                        Số nấm
                                     </th>
 
                                     <th class="text-uppercase  text-xxs font-weight-bolder ">
@@ -129,7 +129,7 @@
                                                 <span class="badge bg-gradient-success">Miễn phí</span>
                                             @else
                                                 <span class="badge bg-gradient-danger">{{ $chapter->price ?? 0 }}
-                                                    cám</span>
+                                                    nấm</span>
                                             @endif
                                         </td>
                                         <td>

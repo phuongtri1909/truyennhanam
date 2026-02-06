@@ -84,10 +84,10 @@
 
                             <div class="col-md-12" id="price-container" style="{{ $chapter->is_free ? 'display: none;' : '' }}">
                                 <div class="form-group">
-                                    <label for="price">Giá (cám)</label>
+                                    <label for="price">Giá (nấm)</label>
                                     <input type="number" name="price" id="price" class="form-control"
                                         value="{{ old('price', $chapter->price) }}" min="0">
-                                    <small class="text-muted">Số cám cần để đọc chương này</small>
+                                    <small class="text-muted">Số nấm cần để đọc chương này</small>
                                     @error('price')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

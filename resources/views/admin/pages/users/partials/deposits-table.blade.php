@@ -19,6 +19,6 @@
     </tr>
 @empty
     <tr>
-        <td colspan="8" class="text-center">Chưa có giao dịch nạp cám</td>
+        <td colspan="8" class="text-center">Chưa có giao dịch nạp nấm</td>
     </tr>
 @endforelse 

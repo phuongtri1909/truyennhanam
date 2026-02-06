@@ -41,8 +41,8 @@
                     <div class="col-md-3">
                         <div class="card bg-gradient-success text-white">
                             <div class="card-body text-center">
-                                <h6 class="text-white">Thưởng cám</h6>
-                                <h4 class="text-white">{{ $dailyTask->coin_reward }} cám</h4>
+                                <h6 class="text-white">Thưởng nấm</h6>
+                                <h4 class="text-white">{{ $dailyTask->coin_reward }} nấm</h4>
                             </div>
                         </div>
                     </div>

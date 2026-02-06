@@ -66,7 +66,7 @@ class HomeController extends Controller
         // Apply advanced search filters (excluding query since it's already applied above)
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request, false);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -110,7 +110,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -158,7 +158,7 @@ class HomeController extends Controller
         // Apply advanced search filters (skip query filter since we already applied translator search)
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request, true);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -169,6 +169,27 @@ class HomeController extends Controller
             'searchType' => 'translator',
             'searchUrl' => route('search.translator'),
             'categories' => Category::orderBy('name')->get()
+        ]);
+    }
+
+    public function showTranslator(User $user)
+    {
+        $stories = $user->stories()
+            ->published()
+            ->visible()
+            ->whereHas('chapters', fn($q) => $q->where('status', 'published'))
+            ->with([
+                'categories:id,name,slug,is_main',
+                'latestChapter' => fn($q) => $q->select('id', 'story_id', 'number', 'slug', 'title', 'created_at')->where('status', 'published'),
+            ])
+            ->select('id', 'title', 'slug', 'cover', 'completed', 'is_18_plus', 'author_name', 'description', 'created_at', 'updated_at')
+            ->latest('updated_at')
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('pages.translator.show', [
+            'translator' => $user,
+            'stories' => $stories,
         ]);
     }
 
@@ -200,7 +221,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -247,7 +268,7 @@ class HomeController extends Controller
 
             $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-            $stories = $storiesQuery->paginate(20);
+            $stories = $storiesQuery->paginate(20)->withQueryString();
         } else {
             $stories = $this->getFeaturedStoriesForPage();
 
@@ -425,7 +446,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -479,7 +500,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -535,7 +556,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $query = $this->applyAdvancedFilters($query, $request);
 
-        $stories = $query->paginate(20);
+        $stories = $query->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -588,7 +609,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -632,7 +653,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -684,7 +705,7 @@ class HomeController extends Controller
         // Apply advanced search filters
         $storiesQuery = $this->applyAdvancedFilters($storiesQuery, $request);
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -711,7 +732,7 @@ class HomeController extends Controller
             ->withCount(['chapters' => fn($q) => $q->where('status', 'published')])
             ->latest('updated_at');
 
-        $stories = $storiesQuery->paginate(20);
+        $stories = $storiesQuery->paginate(20)->withQueryString();
 
         return view('pages.search.results', [
             'stories' => $stories,
@@ -1749,7 +1770,7 @@ class HomeController extends Controller
                 'categories' => function ($query) {
                     $query->select('categories.id', 'categories.name', 'categories.slug');
                 },
-                'user:id,name'
+                'user:id,name,avatar'
             ])
             ->select('stories.*')
             ->selectSub(function ($q) {
@@ -1946,6 +1967,26 @@ class HomeController extends Controller
             ->take(8)
             ->values();
 
+        // 7 truyện hot cùng dịch giả (user_id), sắp theo số lượt mua
+        $translatorHotStories = collect();
+        if ($story->user_id) {
+            $translatorHotStories = Story::published()
+                ->visible()
+                ->where('user_id', $story->user_id)
+                ->where('id', '!=', $story->id)
+                ->with(['categories' => function ($q) {
+                    $q->select('categories.id', 'categories.name', 'categories.slug');
+                }])
+                ->select('id', 'title', 'slug', 'cover', 'description', 'author_name', 'completed')
+                ->withCount(['chapters' => fn($q) => $q->where('status', 'published')])
+                ->orderByRaw(
+                    '(SELECT COUNT(*) FROM story_purchases WHERE story_id = stories.id) + ' .
+                    '(SELECT COUNT(*) FROM chapter_purchases INNER JOIN chapters ON chapters.id = chapter_purchases.chapter_id AND chapters.story_id = stories.id) DESC'
+                )
+                ->limit(7)
+                ->get();
+        }
+
         return [
             'story' => $story,
             'stats' => $stats,
@@ -1954,6 +1995,7 @@ class HomeController extends Controller
             'featuredStories' => $featuredStories,
             'authorStories' => $authorStories,
             'translatorStories' => $translatorStories,
+            'translatorHotStories' => $translatorHotStories,
             'latestChapters' => $latestChapters,
             'relatedStories' => $relatedStories,
         ];
@@ -2120,6 +2162,7 @@ class HomeController extends Controller
             },
             'user:id,name'
         ])
+        ->withCount('chapters')
         ->select([
             'id', 'title', 'slug', 'cover', 'author_name', 
             'user_id', 'created_at', 'updated_at', 'has_combo', 'combo_price', 'story_type'
@@ -2137,11 +2180,12 @@ class HomeController extends Controller
             'id', 'story_id', 'number', 'slug', 'title', 'content',
             'price', 'is_free', 'status', 'views',
             'password_encrypted', 'password_hint',
-            'created_at', 'updated_at'
+            'created_at', 'updated_at', 'published_at'
         ])->findOrFail($data['chapter_id']);
         
-        // Tính word count
-        $chapter->word_count = str_word_count(strip_tags($chapter->content), 0, 'àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳýỵỷỹ');
+        $plainContent = strip_tags($chapter->content ?? '');
+        $chapter->word_count = str_word_count($plainContent, 0, 'àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳýỵỷỹ');
+        $chapter->char_count = mb_strlen($plainContent);
         
         // Load chapters list
         $story->load(['chapters' => function ($q) {

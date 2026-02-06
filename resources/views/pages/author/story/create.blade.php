@@ -144,7 +144,7 @@
                                 <label class="form-check-label" for="has_combo">Bán combo (tất cả chương)</label>
                             </div>
                             <div id="combo-pricing-container" style="display: none;">
-                                <label for="combo_price" class="author-form-label">Giá combo (cám)</label>
+                                <label for="combo_price" class="author-form-label">Giá combo (nấm)</label>
                                 <div class="author-input-wrapper">
                                     <span class="author-input-icon"><i class="fa-solid fa-coins"></i></span>
                                     <input type="number" name="combo_price" id="combo_price"

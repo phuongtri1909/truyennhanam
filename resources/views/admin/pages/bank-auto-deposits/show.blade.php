@@ -48,20 +48,20 @@
                     
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label text-sm font-weight-bold">Cám cộng</label>
-                            <p class="text-sm mb-0">{{ number_format($bankAutoDeposit->base_coins) }} cám</p>
+                            <label class="form-label text-sm font-weight-bold">Nấm cộng</label>
+                            <p class="text-sm mb-0">{{ number_format($bankAutoDeposit->base_coins) }} nấm</p>
                         </div>
                         
                         @if($bankAutoDeposit->bonus_coins > 0)
                         <div class="mb-3">
-                            <label class="form-label text-sm font-weight-bold">Cám tặng</label>
-                            <p class="text-sm mb-0 text-success">+{{ number_format($bankAutoDeposit->bonus_coins) }} cám</p>
+                            <label class="form-label text-sm font-weight-bold">Nấm tặng</label>
+                            <p class="text-sm mb-0 text-success">+{{ number_format($bankAutoDeposit->bonus_coins) }} nấm</p>
                         </div>
                         @endif
                         
                         <div class="mb-3">
-                            <label class="form-label text-sm font-weight-bold">Tổng cám</label>
-                            <p class="text-sm mb-0 font-weight-bold text-primary">{{ number_format($bankAutoDeposit->total_coins ?? $bankAutoDeposit->base_coins) }} cám</p>
+                            <label class="form-label text-sm font-weight-bold">Tổng nấm</label>
+                            <p class="text-sm mb-0 font-weight-bold text-primary">{{ number_format($bankAutoDeposit->total_coins ?? $bankAutoDeposit->base_coins) }} nấm</p>
                         </div>
                         
                         <div class="mb-3">
@@ -156,8 +156,8 @@
                 </div>
                 
                 <div class="mb-2">
-                    <span class="text-sm font-weight-bold">Cám hiện tại:</span>
-                    <span class="text-sm">{{ number_format($bankAutoDeposit->user->coins) }} cám</span>
+                    <span class="text-sm font-weight-bold">Nấm hiện tại:</span>
+                    <span class="text-sm">{{ number_format($bankAutoDeposit->user->coins) }} nấm</span>
                 </div>
                 
                 <div class="mb-2">

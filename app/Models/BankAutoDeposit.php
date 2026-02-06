@@ -91,7 +91,7 @@ class BankAutoDeposit extends Model
      */
     public function getTotalCoinsFormattedAttribute()
     {
-        return number_format($this->total_coins) . ' cám';
+        return number_format($this->total_coins) . ' nấm';
     }
 
     /**
@@ -99,7 +99,7 @@ class BankAutoDeposit extends Model
      */
     public function getBonusCoinsFormattedAttribute()
     {
-        return number_format($this->bonus_coins) . ' cám';
+        return number_format($this->bonus_coins) . ' nấm';
     }
 
     /**
@@ -107,7 +107,7 @@ class BankAutoDeposit extends Model
      */
     public function getBaseCoinsFormattedAttribute()
     {
-        return number_format($this->base_coins) . ' cám';
+        return number_format($this->base_coins) . ' nấm';
     }
 
     /**

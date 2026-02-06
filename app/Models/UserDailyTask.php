@@ -108,7 +108,7 @@ class UserDailyTask extends Model
 
                 return [
                     'success' => true,
-                    'message' => "Hoàn thành nhiệm vụ '{$task->name}' và nhận được {$coinReward} cám!",
+                    'message' => "Hoàn thành nhiệm vụ '{$task->name}' và nhận được {$coinReward} nấm!",
                     'coins_earned' => $coinReward,
                     'completed_count' => $userTask->completed_count,
                     'max_per_day' => $task->max_per_day,

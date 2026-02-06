@@ -7,3 +7,10 @@
     z-index: 89;
     background: transparent url('../../images/d/full-label.png') no-repeat;
 }
+
+.section-title-bar {
+    width: 4px;
+    height: 1.25em;
+    background: var(--primary-color-2);
+    border-radius: 2px;
+}

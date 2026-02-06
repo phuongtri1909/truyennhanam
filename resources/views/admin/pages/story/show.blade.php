@@ -244,7 +244,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted fw-medium mb-2">Doanh thu</p>
-                                                        <h4 class="mb-0">{{ number_format($total_revenue) }} cám</h4>
+                                                        <h4 class="mb-0">{{ number_format($total_revenue) }} nấm</h4>
                                                     </div>
                                                     <div class="avatar-sm align-self-center">
                                                         <span class="avatar-title bg-light text-primary rounded-circle">
@@ -262,9 +262,9 @@
                                 <div class="mb-3">
                                     <h6 class="text-uppercase text-xs font-weight-bolder opacity-6">Thông tin combo:</h6>
                                     <div class="alert alert-info">
-                                        <p class="mb-1">- Giá combo: <strong>{{ number_format($story->combo_price) }}</strong> cám</p>
-                                        <p class="mb-1">- Tổng giá nếu mua lẻ: <strong>{{ number_format($story->total_chapter_price) }}</strong> cám</p>
-                                        <p class="mb-0">- Tiết kiệm: <strong>{{ number_format($story->total_chapter_price - $story->combo_price) }}</strong> cám (<strong>{{ $story->discount_percentage }}%</strong>)</p>
+                                        <p class="mb-1">- Giá combo: <strong>{{ number_format($story->combo_price) }}</strong> nấm</p>
+                                        <p class="mb-1">- Tổng giá nếu mua lẻ: <strong>{{ number_format($story->total_chapter_price) }}</strong> nấm</p>
+                                        <p class="mb-0">- Tiết kiệm: <strong>{{ number_format($story->total_chapter_price - $story->combo_price) }}</strong> nấm (<strong>{{ $story->discount_percentage }}%</strong>)</p>
                                     </div>
                                 </div>
                             @endif
@@ -359,7 +359,7 @@
                                             <tr>
                                                 <td>{{ $purchase->id }}</td>
                                                 <td>{{ $purchase->user->name ?? 'Không xác định' }}</td>
-                                                <td>{{ number_format($purchase->amount_paid) }} cám</td>
+                                                <td>{{ number_format($purchase->amount_paid) }} nấm</td>
                                                 <td>{{ $purchase->created_at->format('d/m/Y H:i') }}</td>
                                             </tr>
                                         @empty
@@ -396,7 +396,7 @@
                                                 <td>{{ $purchase->id }}</td>
                                                 <td>{{ $purchase->user->name ?? 'Không xác định' }}</td>
                                                 <td>Chương {{ $purchase->chapter->number }}: {{ $purchase->chapter->title }}</td>
-                                                <td>{{ number_format($purchase->amount_paid) }} cám</td>
+                                                <td>{{ number_format($purchase->amount_paid) }} nấm</td>
                                                 <td>{{ $purchase->created_at->format('d/m/Y H:i') }}</td>
                                             </tr>
                                         @empty

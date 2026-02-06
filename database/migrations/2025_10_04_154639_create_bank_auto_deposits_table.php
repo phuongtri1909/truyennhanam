@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('bank_id')->constrained()->onDelete('cascade');
             $table->string('transaction_code')->unique();
             $table->decimal('amount', 10, 2);
-            $table->integer('base_coins')->comment('Cám cơ bản');
-            $table->integer('bonus_coins')->comment('Cám bonus');
-            $table->integer('total_coins')->comment('Tổng cám');
+            $table->integer('base_coins')->comment('Nấm cơ bản');
+            $table->integer('bonus_coins')->comment('Nấm bonus');
+            $table->integer('total_coins')->comment('Tổng nấm');
             $table->unsignedInteger('fee_amount')->comment('Phí giao dịch');
             $table->enum('status', ['pending', 'success', 'failed', 'cancelled'])->default('pending');
             $table->text('note')->nullable();

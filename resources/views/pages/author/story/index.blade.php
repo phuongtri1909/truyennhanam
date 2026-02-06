@@ -58,7 +58,7 @@
                             <div class="text-muted small">{{ $story->author_name }}</div>
                         @endif
                         @if($story->has_combo)
-                            <div class="small text-primary"><i class="fa-solid fa-tag me-1"></i>Combo: {{ number_format($story->combo_price) }} cám</div>
+                            <div class="small text-primary"><i class="fa-solid fa-tag me-1"></i>Combo: {{ number_format($story->combo_price) }} nấm</div>
                         @endif
                     </td>
                     <td>{{ $story->chapters_count }}</td>

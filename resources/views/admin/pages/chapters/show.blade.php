@@ -302,7 +302,7 @@
                                         </span>
                                     @else
                                         <span class="price-badge">
-                                            <i class="fas fa-lock me-1"></i>{{ number_format($chapter->price) }} cám
+                                            <i class="fas fa-lock me-1"></i>{{ number_format($chapter->price) }} nấm
                                         </span>
                                     @endif
                                 </div>

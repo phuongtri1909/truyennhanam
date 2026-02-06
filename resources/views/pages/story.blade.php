@@ -138,6 +138,63 @@
     </style>
 @endpush
 
+@once
+@push('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+<style>
+    .section-title-bar { width: 4px; height: 1.25em; background: var(--primary-color-2); border-radius: 2px; }
+    .section-title-tdc { font-size: 1.25rem; }
+    .story-you-may-like-swiper-wrap { position: relative; }
+    .story-you-may-like-swiper-wrap .storyYouMayLikeSwiper { height: auto !important; }
+    .story-you-may-like-swiper-wrap .storyYouMayLikeSwiper .swiper-wrapper { align-items: stretch; box-sizing: border-box; }
+    .story-you-may-like-swiper-wrap .swiper-slide { height: auto !important; box-sizing: border-box; }
+    .story-you-may-like-slide-item { min-width: 0; border-radius: 8px; overflow: hidden; }
+    /* Ẩn title overlay và label Full trong section này (chỉ hiện ảnh bìa như yêu cầu) */
+    .story-you-may-like .story-title-overlay,
+    .story-you-may-like .full-label { display: none !important; }
+    .storyYouMayLikeSwiper .swiper-button-next,
+    .storyYouMayLikeSwiper .swiper-button-prev {
+        width: 40px; height: 40px; background: rgba(255,255,255,0.9); border-radius: 50%;
+        color: var(--primary-color-3); box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .storyYouMayLikeSwiper .swiper-button-next:hover,
+    .storyYouMayLikeSwiper .swiper-button-prev:hover {
+        background: var(--primary-color-3); color: white; transform: scale(1.1);
+    }
+    .storyYouMayLikeSwiper .swiper-button-next:after,
+    .storyYouMayLikeSwiper .swiper-button-prev:after { font-size: 18px; font-weight: bold; }
+    body.dark-mode .storyYouMayLikeSwiper .swiper-button-next,
+    body.dark-mode .storyYouMayLikeSwiper .swiper-button-prev {
+        background: rgba(45,45,45,0.9) !important; color: var(--primary-color-3) !important;
+    }
+</style>
+@endpush
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script>
+    if (document.querySelector('.storyYouMayLikeSwiper')) {
+        new Swiper('.storyYouMayLikeSwiper', {
+            slidesPerView: 2,
+            spaceBetween: 10,
+            autoHeight: true,
+            observer: true,
+            observeParents: true,
+            loop: document.querySelectorAll('.storyYouMayLikeSwiper .swiper-slide').length > 4,
+            navigation: { nextEl: '.storyYouMayLikeSwiper .swiper-button-next', prevEl: '.storyYouMayLikeSwiper .swiper-button-prev' },
+            breakpoints: {
+                320: { slidesPerView: 4, spaceBetween: 8 },
+                540: { slidesPerView: 4, spaceBetween: 10 },
+                768: { slidesPerView: 4, spaceBetween: 16 },
+                992: { slidesPerView: 6, spaceBetween: 16 },
+                1200: { slidesPerView: 8, spaceBetween: 16 },
+            },
+            speed: 800,
+        });
+    }
+</script>
+@endpush
+@endonce
+
 @section('content')
     <section id="page-story" class="py-5">
         <div class="container">
@@ -148,12 +205,9 @@
                     <div class=" mt-4">
 
 
-                        @if (isset($story) && $story->has_combo && ($story->story_type ?? 'normal') === 'normal')
-                            @include('components.combo_story', ['story' => $story])
-                        @else
+                        @if (!(isset($story) && $story->has_combo && ($story->story_type ?? 'normal') === 'normal'))
                             @include('components.latest_chapters', ['latestChapters' => $latestChapters])
                         @endif
-
 
                         <div class="" id="chapters">
                             @if (!Auth()->check() || (Auth()->check() && Auth()->user()->ban_read == false))
@@ -161,6 +215,7 @@
                                     'chapters' => $chapters,
                                     'story' => $story,
                                     'chapterPurchaseStatus' => $chapterPurchaseStatus,
+                                    'showComboButton' => isset($story) && $story->has_combo && ($story->story_type ?? 'normal') === 'normal',
                                 ])
                             @else
                                 <div class="text-center py-5">
@@ -170,20 +225,7 @@
                             @endif
                         </div>
 
-                        <div class="" id="comments">
-                            @if (!Auth()->check() || (Auth()->check() && Auth()->user()->ban_comment == false))
-                                @include('components.comment', [
-                                    'story' => $story,
-                                    'pinnedComments' => $pinnedComments,
-                                    'regularComments' => $regularComments,
-                                ])
-                            @else
-                                <div class="text-center py-5">
-                                    <i class="fas fa-sad-tear fa-4x text-muted mb-3 animate__animated animate__shakeX"></i>
-                                    <h5 class="text-danger">Bạn đã bị cấm bình luận!</h5>
-                                </div>
-                            @endif
-                        </div>
+                        
 
 
                         {{-- @include('components.list_story_de_xuat', ['featuredStories' => $featuredStories]) --}}
@@ -191,8 +233,50 @@
                 </div>
 
                 <div class="col-12 col-md-4">
-                    @include('components.related_stories', ['relatedStories' => $relatedStories])
+                    @include('components.related_stories', [
+                        'story' => $story,
+                        'translatorHotStories' => $translatorHotStories ?? collect(),
+                    ])
                 </div>
+            </div>
+
+            @if(isset($relatedStories) && $relatedStories->isNotEmpty())
+                <section class="story-you-may-like mt-5 mb-4">
+                    <h2 class="section-title-tdc d-flex align-items-center gap-2 mb-4 m-0 fw-bold color-3">
+                        <span class="section-title-bar"></span>
+                        Truyện có thể bạn sẽ thích
+                    </h2>
+                    <div class="story-you-may-like-swiper-wrap position-relative">
+                        <div class="swiper storyYouMayLikeSwiper">
+                            <div class="swiper-wrapper">
+                                @foreach($relatedStories as $relatedStory)
+                                    <div class="swiper-slide">
+                                        <div class="story-you-may-like-slide-item">
+                                            @include('components.stories-grid', ['story' => $relatedStory])
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            <div class="" id="comments">
+                @if (!Auth()->check() || (Auth()->check() && Auth()->user()->ban_comment == false))
+                    @include('components.comment', [
+                        'story' => $story,
+                        'pinnedComments' => $pinnedComments,
+                        'regularComments' => $regularComments,
+                    ])
+                @else
+                    <div class="text-center py-5">
+                        <i class="fas fa-sad-tear fa-4x text-muted mb-3 animate__animated animate__shakeX"></i>
+                        <h5 class="text-danger">Bạn đã bị cấm bình luận!</h5>
+                    </div>
+                @endif
             </div>
         </div>
 

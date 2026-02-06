@@ -1,10 +1,10 @@
 @extends('layouts.information')
 
 @section('info_title', 'Nhiệm vụ hàng ngày')
-@section('info_description', 'Hoàn thành nhiệm vụ hàng ngày để nhận cám thưởng trên ' . request()->getHost())
-@section('info_keyword', 'nhiệm vụ hàng ngày, cám thưởng, điểm thưởng, ' . request()->getHost())
+@section('info_description', 'Hoàn thành nhiệm vụ hàng ngày để nhận nấm thưởng trên ' . request()->getHost())
+@section('info_keyword', 'nhiệm vụ hàng ngày, nấm thưởng, điểm thưởng, ' . request()->getHost())
 @section('info_section_title', 'Nhiệm vụ hàng ngày')
-@section('info_section_desc', 'Hoàn thành các nhiệm vụ để nhận cám thưởng')
+@section('info_section_desc', 'Hoàn thành các nhiệm vụ để nhận nấm thưởng')
 
 @push('styles')
     <style>
@@ -259,7 +259,7 @@
                                 <p class="text-muted mb-2">{{ $task['description'] }}</p>
                                 <div class="coin-reward">
                                     <i class="fas fa-coins"></i>
-                                    {{ $task['coin_reward'] }} cám
+                                    {{ $task['coin_reward'] }} nấm
                                 </div>
                             </div>
                             <div class="text-end">
@@ -338,7 +338,7 @@
                                         <td>
                                             <span class="fw-medium text-warning">
                                                 <i class="fas fa-coins me-1"></i>
-                                                {{ $item->dailyTask->coin_reward }} cám
+                                                {{ $item->dailyTask->coin_reward }} nấm
                                             </span>
                                         </td>
                                         <td>
@@ -360,7 +360,7 @@
                             <i class="fas fa-tasks fa-3x"></i>
                         </div>
                         <h6>Chưa có lịch sử nhiệm vụ</h6>
-                        <p class="text-muted">Hãy bắt đầu hoàn thành các nhiệm vụ để nhận cám thưởng!</p>
+                        <p class="text-muted">Hãy bắt đầu hoàn thành các nhiệm vụ để nhận nấm thưởng!</p>
                     </div>
                 @endif
             </div>

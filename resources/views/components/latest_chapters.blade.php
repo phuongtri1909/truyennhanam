@@ -14,8 +14,8 @@
                                     @endif
                                 </a>
                             </div>
-                            <span class="border border-1 border-color-2 fs-7 p-1">
-                                New
+                            <span class="latest-chapter-time text-muted fs-7">
+                                {{ time_elapsed_string($chapter->created_at) }}
                             </span>
                         </li>
                     @endforeach
@@ -35,10 +35,11 @@
                 .latest-chapters-title {
                     position: absolute;
                     top: -12px;
-                    left: 23px;
+                    left: 50%;
+                    transform: translateX(-50%);
                     font-size: 15px;
                     font-weight: bold;
-                    color: #333;
+                    color: var(--primary-color-2);
                     padding: 0 10px;
                     z-index: 1;
                 }
@@ -56,12 +57,13 @@
 
                 .dark-mode .latest-chapters-title {
                     color: #e0e0e0;
+                    background-color: #1a1a1a;
                 }
 
                 .latest-chapters-border {
-                    border: 2px solid var(--primary-color-2);
+                    border: 2px dashed var(--primary-color-2);
                     border-radius: 12px;
-                    padding: 15px;
+                    padding: 5px;
                     position: relative;
                 }
 
@@ -69,19 +71,15 @@
                     content: '';
                     position: absolute;
                     top: -2px;
-                    left: 20px;
-                    width: 160px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 180px;
                     height: 2px;
                     background-color: var(--primary-bg-3);
                 }
 
                 .dark-mode .latest-chapters-border::before {
                     background-color: #1a1a1a;
-                }
-
-                .latest-chapters-content {
-                    background: #d2d8ab;
-                    border-radius: 8px;
                 }
 
                 .latest-chapters-list {

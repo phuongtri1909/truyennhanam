@@ -125,7 +125,7 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h6>Chuyển cám cho người dùng</h6>
+                            <h6>Chuyển nấm cho người dùng</h6>
                             <a href="{{ route('admin.coin-transfers.index') }}" class="btn btn-secondary btn-sm">
                                 <i class="fas fa-arrow-left me-1"></i> Quay lại
                             </a>
@@ -144,7 +144,7 @@
                             </div>
                         @endif
 
-                        <!-- Current Admin cám Info -->
+                        <!-- Current Admin nấm Info -->
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <div class="card bg-gradient-info">
@@ -167,7 +167,7 @@
                                 <div class="card bg-gradient-success">
                                     <div class="card-body p-3">
                                         <div class="text-white">
-                                            <h6 class="mb-0">Cám hiện tại</h6>
+                                            <h6 class="mb-0">Nấm hiện tại</h6>
                                             <h4 class="mb-0">{{ number_format(Auth::user()->coins) }}</h4>
                                         </div>
                                     </div>
@@ -221,12 +221,12 @@
                                                     </div>
 
                                                     <div class="form-group mb-3">
-                                                        <label for="amount" class="form-control-label">Số Cám <span
+                                                        <label for="amount" class="form-control-label">Số Nấm <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="number"
                                                             class="form-control @error('amount') is-invalid @enderror"
                                                             id="amount" name="amount" min="1" max="50000"
-                                                            value="{{ old('amount', 1) }}" placeholder="Nhập số Cám..."
+                                                            value="{{ old('amount', 1) }}" placeholder="Nhập số Nấm..."
                                                             required>
                                                         @error('amount')
                                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -236,7 +236,7 @@
                                                     <div class="form-group mb-3">
                                                         <label for="note" class="form-control-label">Ghi chú</label>
                                                         <textarea class="form-control @error('note') is-invalid @enderror" id="note" name="note" rows="3"
-                                                            placeholder="Lý do chuyển Cám...">{{ old('note') }}</textarea>
+                                                            placeholder="Lý do chuyển Nấm...">{{ old('note') }}</textarea>
                                                         @error('note')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -251,7 +251,7 @@
                                                         <button type="submit"
                                                             class="btn bg-gradient-primary btn-sm flex-grow-1"
                                                             id="submitBtn">
-                                                            <i class="fas fa-exchange-alt me-1"></i> Chuyển Cám
+                                                            <i class="fas fa-exchange-alt me-1"></i> Chuyển Nấm
                                                         </button>
                                                     </div>
                                                 </form>
@@ -275,12 +275,12 @@
 
                                                             <div class="form-group mb-3">
                                                                 <label class="text-sm mb-1"><strong>Số
-                                                                        Cám:</strong></label>
+                                                                        Nấm:</strong></label>
                                                                 <div id="amountInfo" class="bg-light p-2 rounded">-</div>
                                                             </div>
 
                                                             <div class="form-group mb-3">
-                                                                <label class="text-sm mb-1"><strong>Cám còn lại sau
+                                                                <label class="text-sm mb-1"><strong>Nấm còn lại sau
                                                                         chuyển:</strong></label>
                                                                 <div id="remainingInfo" class="bg-light p-2 rounded">-
                                                                 </div>
@@ -288,7 +288,7 @@
 
                                                             <div class="alert alert-warning mb-0">
                                                                 <i class="fas fa-exclamation-triangle me-2"></i>
-                                                                <strong>Chú ý:</strong> Giao dịch này sẽ trừ Cám từ tài
+                                                                <strong>Chú ý:</strong> Giao dịch này sẽ trừ Nấm từ tài
                                                                 khoản của bạn và cộng vào người nhận ngay lập tức!
                                                             </div>
                                                         </div>
@@ -299,7 +299,7 @@
                                                 <div id="emptyState" class="text-center py-5">
                                                     <i class="fas fa-arrow-left text-muted" style="font-size: 3rem;"></i>
                                                     <h5 class="text-muted mt-3">Điền thông tin bên trái để xem trước</h5>
-                                                    <p class="text-muted">Chọn người nhận và số Cám để xem thông tin chi
+                                                    <p class="text-muted">Chọn người nhận và số Nấm để xem thông tin chi
                                                         tiết</p>
                                                 </div>
                                             </div>
@@ -479,9 +479,9 @@
                     const remainingCoins = currentCoins - totalNeeded;
 
                     document.getElementById('amountInfo').textContent = transferAmount.toLocaleString() +
-                        ' Cám/người';
+                        ' Nấm/người';
                     document.getElementById('remainingInfo').innerHTML =
-                        `<span class="${remainingCoins >= 0 ? 'text-success' : 'text-danger'}">${remainingCoins.toLocaleString()} Cám</span>`;
+                        `<span class="${remainingCoins >= 0 ? 'text-success' : 'text-danger'}">${remainingCoins.toLocaleString()} Nấm</span>`;
 
                     // Show preview section và hide empty state
                     previewSection.style.display = 'block';
@@ -531,13 +531,13 @@
 
                 if (totalNeeded > currentCoins) {
                     e.preventDefault();
-                    alert('Số Cám của bạn không đủ để chuyển!');
+                    alert('Số Nấm của bạn không đủ để chuyển!');
                     return;
                 }
 
                 const confirmMessage = selectedUsers.length === 1 ?
-                    `Xác nhận chuyển ${amount.toLocaleString()} Cám cho ${selectedUsers[0].display}?` :
-                    `Xác nhận chuyển ${amount.toLocaleString()} Cám cho ${selectedUsers.length} người (Tổng: ${totalNeeded.toLocaleString()} Cám)?`;
+                    `Xác nhận chuyển ${amount.toLocaleString()} Nấm cho ${selectedUsers[0].display}?` :
+                    `Xác nhận chuyển ${amount.toLocaleString()} Nấm cho ${selectedUsers.length} người (Tổng: ${totalNeeded.toLocaleString()} Nấm)?`;
 
                 if (!confirm(confirmMessage)) {
                     e.preventDefault();

@@ -1,10 +1,10 @@
 @extends('layouts.information')
 
-@section('info_title', 'Nạp cám')
-@section('info_description', 'Nạp cám vào tài khoản của bạn trên ' . request()->getHost())
-@section('info_keyword', 'nạp cám, thanh toán, ' . request()->getHost())
-@section('info_section_title', 'Nạp cám')
-@section('info_section_desc', 'Nạp cám vào tài khoản để sử dụng các dịch vụ cao cấp')
+@section('info_title', 'Nạp nấm')
+@section('info_description', 'Nạp nấm vào tài khoản của bạn trên ' . request()->getHost())
+@section('info_keyword', 'nạp nấm, thanh toán, ' . request()->getHost())
+@section('info_section_title', 'Nạp nấm')
+@section('info_section_desc', 'Nạp nấm vào tài khoản để sử dụng các dịch vụ cao cấp')
 
 @push('styles')
     <style>
@@ -136,11 +136,11 @@
             <div class="col-lg-8">
                 <div class="">
                     <div class="deposit-card-header">
-                        <h5 class="mb-0">Nạp cám qua chuyển khoản ngân hàng</h5>
+                        <h5 class="mb-0">Nạp nấm qua chuyển khoản ngân hàng</h5>
                     </div>
                     <div class="deposit-card-body">
                         <div class="alert alert-info d-none">
-                            <p>Tỷ giá hiện tại: 1 cám = {{ number_format($coinExchangeRate) }} VNĐ</p>
+                            <p>Tỷ giá hiện tại: 1 nấm = {{ number_format($coinExchangeRate) }} VNĐ</p>
                             <p>Phí giao dịch: {{ $coinBankPercent }}%</p>
                         </div>
 
@@ -192,7 +192,7 @@
                                 <div class="deposit-coin-preview mt-4">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <div class="small text-white opacity-75">Cám nhận được:</div>
+                                            <div class="small text-white opacity-75">Nấm nhận được:</div>
                                             <div class="coin-preview-value">
                                                 <i class="fas fa-coins me-2"></i>
                                                 <span id="totalCoinsPreview">0</span>
@@ -201,13 +201,13 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <small class="text-white fw-bold">
-                                                            <i class="fas fa-coins me-1"></i>Cám cộng:
+                                                            <i class="fas fa-coins me-1"></i>Nấm cộng:
                                                             <span id="baseCoinsPreview">0</span>
                                                         </small>
                                                     </div>
                                                     <div class="col-6">
                                                         <small class="color-text fw-bold">
-                                                            <i class="fas fa-gift me-1"></i>Cám tặng:
+                                                            <i class="fas fa-gift me-1"></i>Nấm tặng:
                                                             <span id="bonusCoinsPreview">0</span>
                                                         </small>
                                                     </div>
@@ -217,7 +217,7 @@
                                     </div>
                                     {{-- <div class="small text-white opacity-75 mt-2">
                                         <i class="fas fa-info-circle me-1"></i> Tỷ giá:
-                                        {{ number_format($coinExchangeRate) }} VNĐ = 1 cám
+                                        {{ number_format($coinExchangeRate) }} VNĐ = 1 nấm
                                     </div> --}}
                                     {{-- <div class="small text-white opacity-75 mt-1">
                                         <i class="fas fa-percentage me-1"></i> Phí giao dịch:
@@ -239,15 +239,15 @@
                     <!-- Bảng mức nạp tiền -->
                     <div class="deposit-table">
                         <h6 class="text-dark mb-3">
-                            Mức quy định đổi cám hiên tại:
+                            Mức quy định đổi nấm hiên tại:
                         </h6>
                         <div class="table-responsive">
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Số tiền</th>
-                                        <th class="text-center">Cám cộng</th>
-                                        <th class="text-center">Cám tặng</th>
+                                        <th class="text-center">Nấm cộng</th>
+                                        <th class="text-center">Nấm tặng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -256,7 +256,7 @@
                                     @endphp
                                     @foreach ($amounts as $amount)
                                         @php
-                                            // Tính toán cám cơ bản
+                                            // Tính toán nấm cơ bản
                                             $feeAmount = ($amount * $coinBankPercent) / 100;
                                             $amountAfterFee = $amount - $feeAmount;
                                             $baseCoins = floor($amountAfterFee / $coinExchangeRate);
@@ -295,9 +295,9 @@
                                         <th style="width: 15%">Mã giao dịch</th>
                                         <th style="width: 12%">Ngân hàng</th>
                                         <th style="width: 12%">Số tiền</th>
-                                        <th style="width: 10%">Cám cộng</th>
-                                        <th style="width: 10%">Cám tặng</th>
-                                        <th style="width: 10%">Tổng cám</th>
+                                        <th style="width: 10%">Nấm cộng</th>
+                                        <th style="width: 10%">Nấm tặng</th>
+                                        <th style="width: 10%">Tổng nấm</th>
                                         <th style="width: 12%">Ngày tạo</th>
                                         <th style="width: 8%">Trạng thái</th>
                                         <th style="width: 11%">Biên lai</th>
@@ -386,7 +386,7 @@
                                 <i class="fas fa-exchange-alt empty-transactions-icon"></i>
                             </div>
                             <h5>Chưa có giao dịch nào</h5>
-                            <p class="empty-transactions-text">Bạn chưa thực hiện giao dịch nạp cám nào. Hãy nạp cám để sử
+                            <p class="empty-transactions-text">Bạn chưa thực hiện giao dịch nạp nấm nào. Hãy nạp nấm để sử
                                 dụng các tính năng trả phí.</p>
                         </div>
                     @endif
@@ -529,13 +529,13 @@
                         </div>
 
                         <div class="alert alert-info mt-4">
-                            <i class="fas fa-info-circle me-2"></i> Sau khi gửi chứng từ thanh toán, yêu cầu nạp cám của bạn
+                            <i class="fas fa-info-circle me-2"></i> Sau khi gửi chứng từ thanh toán, yêu cầu nạp nấm của bạn
                             sẽ được xử lý trong vòng 24 giờ làm việc.
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn payment-btn" id="evidenceSubmitBtn">
-                                <i class="fas fa-paper-plane me-2"></i> Gửi yêu cầu nạp cám
+                                <i class="fas fa-paper-plane me-2"></i> Gửi yêu cầu nạp nấm
                             </button>
                         </div>
                     </form>
@@ -623,7 +623,7 @@
                 }, 100);
             });
 
-            // Cập nhật preview số cám
+            // Cập nhật preview số nấm
             $('#amount').on('input', function() {
                 updateCoinPreview();
             });
@@ -967,7 +967,7 @@
                     complete: function() {
                         // Khôi phục trạng thái nút
                         $('#evidenceSubmitBtn').prop('disabled', false).html(
-                            '<i class="fas fa-paper-plane me-2"></i> Gửi yêu cầu nạp cám');
+                            '<i class="fas fa-paper-plane me-2"></i> Gửi yêu cầu nạp nấm');
                     }
                 });
             });
@@ -1372,7 +1372,7 @@
                     }
                 });
 
-                // Gọi tính toán cám ngay khi trang tải xong để hiển thị số cám tính từ 50.000
+                // Gọi tính toán nấm ngay khi trang tải xong để hiển thị số nấm tính từ 50.000
                 updateCoinPreview();
             });
         </script>

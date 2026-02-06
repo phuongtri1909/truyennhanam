@@ -11,7 +11,7 @@
         <div class="author-form-info-icon"><i class="fa-solid fa-coins"></i></div>
         <div class="author-form-info-content">
             <h6 class="author-form-info-title">Sửa giá chương hàng loạt</h6>
-            <p class="author-form-info-text mb-0">Nhập khoảng <strong>từ chương → đến chương</strong> hoặc chọn từng chương bằng checkbox, sau đó chọn <strong>Đặt miễn phí</strong> hoặc <strong>Đặt giá (cám)</strong>. Áp dụng cho truyện thường có chương set xu.</p>
+            <p class="author-form-info-text mb-0">Nhập khoảng <strong>từ chương → đến chương</strong> hoặc chọn từng chương bằng checkbox, sau đó chọn <strong>Đặt miễn phí</strong> hoặc <strong>Đặt giá (nấm)</strong>. Áp dụng cho truyện thường có chương set xu.</p>
         </div>
     </div>
 
@@ -59,7 +59,7 @@
                         <span class="author-input-icon"><i class="fa-solid fa-coins"></i></span>
                         <input type="number" name="price" id="priceInput" class="form-control author-form-input" value="0" min="0" placeholder="0">
                     </div>
-                    <span class="text-muted small">cám</span>
+                    <span class="text-muted small">nấm</span>
                 </div>
             </div>
 
@@ -84,7 +84,7 @@
                             </td>
                             <td>Chương {{ $chapter->number }}</td>
                             <td>{{ Str::limit($chapter->title, 40) }}</td>
-                            <td>{{ $chapter->is_free ? 'Miễn phí' : $chapter->price . ' cám' }}</td>
+                            <td>{{ $chapter->is_free ? 'Miễn phí' : $chapter->price . ' nấm' }}</td>
                             <td><span class="badge author-status-tag bg-{{ $chapter->status == 'published' ? 'success' : 'secondary' }}">{{ $chapter->status == 'published' ? 'Hiển thị' : 'Nháp' }}</span></td>
                         </tr>
                         @empty
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var countText = hasRange ? 'chương ' + fromVal + '–' + toVal : checked + ' chương đã chọn';
         var msg = action === 'free'
             ? 'Đặt miễn phí ' + countText + '?'
-            : 'Đặt giá ' + priceInput.value + ' cám cho ' + countText + '?';
+            : 'Đặt giá ' + priceInput.value + ' nấm cho ' + countText + '?';
         if (typeof Swal !== 'undefined') {
             Swal.fire({
                 title: 'Xác nhận',

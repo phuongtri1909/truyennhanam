@@ -61,7 +61,7 @@
             </div>
             <div class="col-12" id="price-container" style="display: none;">
                 <div class="form-group author-form-group">
-                    <label for="price" class="author-form-label">Giá (cám)</label>
+                    <label for="price" class="author-form-label">Giá (nấm)</label>
                     <div class="author-input-wrapper">
                         <span class="author-input-icon"><i class="fa-solid fa-coins"></i></span>
                         <input type="number" name="price" id="price" class="form-control author-form-input" value="{{ old('price', 0) }}" min="0">

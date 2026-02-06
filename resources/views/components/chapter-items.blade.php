@@ -3,9 +3,7 @@
     <div class="d-block d-md-none">
         <ul class="chapter-list text-muted">
             @foreach ($chapters as $chapter)
-                <li>
                     @include('components.chapter-item', ['chapter' => $chapter])
-                </li>
             @endforeach
         </ul>
     </div>
@@ -14,18 +12,14 @@
     <div class="col-6 d-none d-md-block">
         <ul class="chapter-list text-muted">
             @foreach ($chapters->take(ceil($chapters->count() / 2)) as $chapter)
-               <li>
                 @include('components.chapter-item', ['chapter' => $chapter])
-               </li>
             @endforeach
         </ul>
     </div>
     <div class="col-6 d-none d-md-block">
         <ul class="chapter-list text-muted">
             @foreach ($chapters->skip(ceil($chapters->count() / 2)) as $chapter)
-                <li>
                     @include('components.chapter-item', ['chapter' => $chapter])
-                </li>
             @endforeach
         </ul>
     </div>
@@ -254,7 +248,15 @@
         .chapter-list li {
             width: 100%;
             overflow: hidden;
-            margin-bottom: 8px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color-1);
+        }
+
+        .chapter-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .title-chapter-item {

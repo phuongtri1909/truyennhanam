@@ -472,7 +472,7 @@ class ChapterController extends Controller
 
         $msg = $isFree
             ? "Đã đặt miễn phí {$updated} chương."
-            : "Đã cập nhật giá {$price} cám cho {$updated} chương.";
+            : "Đã cập nhật giá {$price} nấm cho {$updated} chương.";
 
         return redirect()->route('author.stories.chapters.index', $story)->with('success', $msg);
     }

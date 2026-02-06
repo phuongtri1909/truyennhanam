@@ -187,7 +187,7 @@ Content-Type: application/json
     "data": {
         "id": 12345,
         "reference": "BA1234567890ABC",
-        "description": "Nạp cám tự động - BA1234567890ABC",
+        "description": "Nạp nấm tự động - BA1234567890ABC",
         "amount": 100000,
         "runningBalance": 25000000,
         "transactionDateTime": "2025-01-01T10:00:00",
@@ -398,7 +398,7 @@ curl -X POST https://yourdomain.com/bank-auto-deposit/callback \
     "data": {
       "id": 12345,
       "reference": "BA1234567890ABC",
-      "description": "Nạp cám tự động - BA1234567890ABC",
+      "description": "Nạp nấm tự động - BA1234567890ABC",
       "amount": 100000,
       "accountNumber": "1234567890",
       "bankName": "Vietcombank"

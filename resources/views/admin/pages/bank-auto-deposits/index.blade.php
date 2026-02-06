@@ -209,7 +209,7 @@
                             </th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người dùng</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Số tiền</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cám</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nấm</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng thái</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thời gian</th>
                             <th class="text-secondary opacity-7">Thao tác</th>
@@ -254,7 +254,7 @@
                                 <td>
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">
-                                            {{ number_format($deposit->total_coins ?? $deposit->base_coins) }} cám</h6>
+                                            {{ number_format($deposit->total_coins ?? $deposit->base_coins) }} nấm</h6>
                                         @if ($deposit->bonus_coins > 0)
                                             <p class="text-xs text-success mb-0">
                                                 +{{ number_format($deposit->bonus_coins) }} bonus</p>

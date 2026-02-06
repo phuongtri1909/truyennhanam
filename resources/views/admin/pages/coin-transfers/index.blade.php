@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng cám đã chuyển</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng nấm đã chuyển</p>
                                         <h5 class="font-weight-bolder mb-0 text-success">
                                             {{ number_format($stats['total_amount_transferred']) }}
                                         </h5>
@@ -102,14 +102,14 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6>
                                 @if (Auth::user()->role === 'admin_main')
-                                    Quản lý chuyển khoản cám từ admin_sub
+                                    Quản lý chuyển khoản nấm từ admin_sub
                                 @else
-                                    Lịch sử chuyển cám của tôi
+                                    Lịch sử chuyển nấm của tôi
                                 @endif
                             </h6>
                             @if (Auth::user()->role === 'admin_sub')
                                 <a href="{{ route('admin.coin-transfers.create') }}" class="btn bg-gradient-primary btn-sm">
-                                    <i class="fas fa-plus me-1"></i> Chuyển cám
+                                    <i class="fas fa-plus me-1"></i> Chuyển nấm
                                 </a>
                             @endif
                         </div>
@@ -179,7 +179,7 @@
                                             <th class="text-uppercase text-xxs font-weight-bolder ps-2">Admin_sub</th>
                                         @endif
                                         <th class="text-uppercase text-xxs font-weight-bolder ps-2">Người nhận</th>
-                                        <th class="text-uppercase text-xxs font-weight-bolder ps-2">Số cám</th>
+                                        <th class="text-uppercase text-xxs font-weight-bolder ps-2">Số nấm</th>
                                         <th class="text-uppercase text-xxs font-weight-bolder ps-2">Trạng thái</th>
                                         <th class="text-uppercase text-xxs font-weight-bolder ps-2">Ghi chú</th>
                                         <th class="text-uppercase text-xxs font-weight-bolder ps-2">Thời gian</th>

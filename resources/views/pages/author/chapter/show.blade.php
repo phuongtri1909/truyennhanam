@@ -15,7 +15,7 @@
     </div>
     <h6 class="author-form-section-title"><i class="fa-solid fa-book-open me-2"></i> {{ $chapter->title }}</h6>
     <p class="author-form-info-text mb-3">
-        Chương {{ $chapter->number }} • {{ $chapter->is_free ? 'Miễn phí' : $chapter->price . ' cám' }} • 
+        Chương {{ $chapter->number }} • {{ $chapter->is_free ? 'Miễn phí' : $chapter->price . ' nấm' }} • 
         <span class="badge author-status-tag bg-{{ $chapter->status == 'published' ? 'success' : 'secondary' }}">
             {{ $chapter->status == 'published' ? 'Hiển thị' : 'Nháp' }}
         </span>

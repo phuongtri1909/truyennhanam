@@ -60,7 +60,7 @@ class BankAutoController extends Controller
     }
 
     /**
-     * Tính toán số cám nhận được bao gồm bonus
+     * Tính toán số nấm nhận được bao gồm bonus
      */
     public function calculateCoins($amount)
     {

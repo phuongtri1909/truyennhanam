@@ -116,7 +116,7 @@
     @media (min-width: 768px) {
         .completed-item-thumb {
             width: 100px;
-            height: 135px;
+            height: 140px;
         }
     }
 </style>

@@ -23,14 +23,14 @@
         </td>
         <td>
             <span class="fw-bold text-{{ $history->type == 'add' ? 'success' : 'danger' }}">
-                {{ $history->formatted_amount }} cám
+                {{ $history->formatted_amount }} nấm
             </span>
         </td>
         <td>
-            <span class="fw-bold">{{ number_format($history->balance_before) }} cám</span>
+            <span class="fw-bold">{{ number_format($history->balance_before) }} nấm</span>
         </td>
         <td>
-            <span class="fw-bold">{{ number_format($history->balance_after) }} cám</span>
+            <span class="fw-bold">{{ number_format($history->balance_after) }} nấm</span>
         </td>
         <td>
             <small class="text-muted">{{ $history->ip_address }}</small>
@@ -41,7 +41,7 @@
         <td colspan="7" class="text-center py-4">
             <div class="text-muted">
                 <i class="fas fa-inbox fa-3x mb-3"></i>
-                <p>Chưa có lịch sử cám nào</p>
+                <p>Chưa có lịch sử nấm nào</p>
             </div>
         </td>
     </tr>

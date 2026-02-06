@@ -23,9 +23,9 @@
                                 </div>
 
                                 <div class="info-item mb-3">
-                                    <strong>Số Cám:</strong>
+                                    <strong>Số Nấm:</strong>
                                     <span class="text-success font-weight-bold">{{ number_format($transfer->amount) }}
-                                        Cám</span>
+                                        Nấm</span>
                                 </div>
 
                                 <div class="info-item mb-3">
@@ -76,7 +76,7 @@
                                     <div>
                                         <h6 class="mb-1">{{ $transfer->toUser->name }}</h6>
                                         <p class="text-muted mb-0">{{ $transfer->toUser->email }}</p>
-                                        <small class="text-success">Số Cám hiện tại:
+                                        <small class="text-success">Số Nấm hiện tại:
                                             {{ number_format($transfer->toUser->coins) }}</small>
                                     </div>
                                 </div>

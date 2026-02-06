@@ -1,4 +1,4 @@
-<li class="d-flex align-items-center mb-3">
+<li class="d-flex align-items-center justify-content-between mb-3 gap-2">
     <a class="fw-semibold text-dark title-chapter-item" href="{{ route('chapter', ['storySlug' => $story->slug, 'chapterSlug' => $chapter->slug]) }}"
         title="{{ $chapter->title }}">
         <span class="chapter-text"> Chương {{ $chapter->number }}
@@ -7,6 +7,7 @@
             @endif
         </span>
     </a>
+    <span class="chapter-item-time text-muted fs-7 flex-shrink-0">{{ time_elapsed_string($chapter->created_at) }}</span>
 </li>
 @push('styles')
     <style>

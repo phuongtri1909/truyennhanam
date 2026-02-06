@@ -3,9 +3,9 @@
         <td>{{ $transaction->id }}</td>
         <td>
             @if($transaction->type === 'add')
-                <span class="badge bg-success">Cộng cám</span>
+                <span class="badge bg-success">Cộng nấm</span>
             @else
-                <span class="badge bg-danger">Trừ cám</span>
+                <span class="badge bg-danger">Trừ nấm</span>
             @endif
         </td>
         <td>{{ number_format($transaction->amount) }}</td>
@@ -15,6 +15,6 @@
     </tr>
 @empty
     <tr>
-        <td colspan="6" class="text-center">Chưa có giao dịch cám nào</td>
+        <td colspan="6" class="text-center">Chưa có giao dịch nấm nào</td>
     </tr>
 @endforelse 

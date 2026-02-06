@@ -16,14 +16,14 @@ class ConfigSeeder extends Seeder
         Config::setConfig(
             'coin_exchange_rate',
             10,
-            'quy đổi tiền sang cám 100 VND = 1 cám'
+            'quy đổi tiền sang nấm 100 VND = 1 nấm'
         );
 
         Config::setConfig('bonus_base_amount', 100000, 'Mốc số tiền đầu tiên để tính thưởng');
-        Config::setConfig('bonus_base_cam',    300,    'Cám tặng tại mốc base_amount');
+        Config::setConfig('bonus_base_cam',    300,    'Nấm tặng tại mốc base_amount');
 
         Config::setConfig('bonus_double_amount', 200000, 'Mốc số tiền thứ 2');
-        Config::setConfig('bonus_double_cam',    1000,   'Cám tặng tại mốc double_amount');
+        Config::setConfig('bonus_double_cam',    1000,   'Nấm tặng tại mốc double_amount');
 
         Config::setConfig(
             'coin_bank_percentage',
@@ -64,19 +64,19 @@ class ConfigSeeder extends Seeder
         Config::setConfig(
             'daily_task_login_reward',
             10,
-            'Số cám thưởng khi hoàn thành nhiệm vụ đăng nhập hàng ngày'
+            'Số nấm thưởng khi hoàn thành nhiệm vụ đăng nhập hàng ngày'
         );
 
         Config::setConfig(
             'daily_task_comment_reward',
             10,
-            'Số cám thưởng khi hoàn thành nhiệm vụ bình luận truyện'
+            'Số nấm thưởng khi hoàn thành nhiệm vụ bình luận truyện'
         );
 
         Config::setConfig(
             'daily_task_bookmark_reward',
             10,
-            'Số cám thưởng khi hoàn thành nhiệm vụ theo dõi truyện'
+            'Số nấm thưởng khi hoàn thành nhiệm vụ theo dõi truyện'
         );
 
         Config::setConfig(
@@ -100,7 +100,7 @@ class ConfigSeeder extends Seeder
         Config::setConfig(
             'donate_fee_percentage',
             10,
-            'Phí donate (%) - phí này sẽ được trừ từ số tiền donate. Ví dụ: donate 100 cám với phí 10% thì người nhận nhận 90 cám.'
+            'Phí donate (%) - phí này sẽ được trừ từ số tiền donate. Ví dụ: donate 100 nấm với phí 10% thì người nhận nhận 90 nấm.'
         );
 
         Config::setConfig(
@@ -118,7 +118,7 @@ class ConfigSeeder extends Seeder
         Config::setConfig(
             'facebook_page_url',
             'https://www.facebook.com/profile.php?id=61572454674711',
-            'URL fan page Facebook (dùng cho footer, trang chương, trang nạp cám)'
+            'URL fan page Facebook (dùng cho footer, trang chương, trang nạp nấm)'
         );
     }
 }

@@ -26,7 +26,7 @@
                                      </div>
                                      <div class="flex-grow-1 ms-3">
                                          <h6 class="card-title text-muted mb-1">Tổng cộng</h6>
-                                         <h4 class="mb-0 text-success fw-bold">{{ number_format($stats['total_added']) }} cám</h4>
+                                         <h4 class="mb-0 text-success fw-bold">{{ number_format($stats['total_added']) }} nấm</h4>
                                      </div>
                                  </div>
                              </div>
@@ -41,7 +41,7 @@
                                      </div>
                                      <div class="flex-grow-1 ms-3">
                                          <h6 class="card-title text-muted mb-1">Tổng trừ</h6>
-                                         <h4 class="mb-0 text-danger fw-bold">{{ number_format($stats['total_subtracted']) }} cám</h4>
+                                         <h4 class="mb-0 text-danger fw-bold">{{ number_format($stats['total_subtracted']) }} nấm</h4>
                                      </div>
                                  </div>
                              </div>
@@ -71,7 +71,7 @@
                                      </div>
                                      <div class="flex-grow-1 ms-3">
                                          <h6 class="card-title text-muted mb-1">Số dư thực tế</h6>
-                                         <h4 class="mb-0 text-warning fw-bold">{{ number_format($stats['total_added'] - $stats['total_subtracted']) }} cám</h4>
+                                         <h4 class="mb-0 text-warning fw-bold">{{ number_format($stats['total_added'] - $stats['total_subtracted']) }} nấm</h4>
                                      </div>
                                  </div>
                              </div>
@@ -85,8 +85,8 @@
                                          </div>
                                      </div>
                                      <div class="flex-grow-1 ms-3">
-                                         <h6 class="card-title text-muted mb-1">Cám nhiệm vụ</h6>
-                                         <h4 class="mb-0 text-primary fw-bold">{{ number_format($stats['total_daily_task_coins'] ?? 0) }} cám</h4>
+                                         <h6 class="card-title text-muted mb-1">Nấm nhiệm vụ</h6>
+                                         <h4 class="mb-0 text-primary fw-bold">{{ number_format($stats['total_daily_task_coins'] ?? 0) }} nấm</h4>
                                      </div>
                                  </div>
                              </div>
@@ -110,8 +110,8 @@
                                 <div class="col-md-2">
                                     <select name="type" class="form-select">
                                         <option value="">Tất cả loại</option>
-                                        <option value="add" {{ request('type') == 'add' ? 'selected' : '' }}>Cộng cám</option>
-                                        <option value="subtract" {{ request('type') == 'subtract' ? 'selected' : '' }}>Trừ cám</option>
+                                        <option value="add" {{ request('type') == 'add' ? 'selected' : '' }}>Cộng nấm</option>
+                                        <option value="subtract" {{ request('type') == 'subtract' ? 'selected' : '' }}>Trừ nấm</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
@@ -150,7 +150,7 @@
                                     <th>User</th>
                                     <th>Loại giao dịch</th>
                                     <th>Mô tả</th>
-                                    <th>Số cám</th>
+                                    <th>Số nấm</th>
                                     <th>Số dư trước</th>
                                     <th>Số dư sau</th>
                                     <th>IP</th>
@@ -188,14 +188,14 @@
                                         </td>
                                         <td>
                                             <span class="fw-bold text-{{ $transaction->type == 'add' ? 'success' : 'danger' }}">
-                                                {{ $transaction->formatted_amount }} cám
+                                                {{ $transaction->formatted_amount }} nấm
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="fw-bold">{{ number_format($transaction->balance_before) }} cám</span>
+                                            <span class="fw-bold">{{ number_format($transaction->balance_before) }} nấm</span>
                                         </td>
                                         <td>
-                                            <span class="fw-bold">{{ number_format($transaction->balance_after) }} cám</span>
+                                            <span class="fw-bold">{{ number_format($transaction->balance_after) }} nấm</span>
                                         </td>
                                         <td>
                                             <small class="text-muted">{{ $transaction->ip_address }}</small>

@@ -1,10 +1,10 @@
 @extends('layouts.information')
 
-@section('info_title', 'Nạp cám tự động')
-@section('info_description', 'Nạp cám tự động qua trên ' . request()->getHost())
-@section('info_keyword', 'nạp cám, thanh toán tự động, Casso, ' . request()->getHost())
-@section('info_section_title', 'Nạp cám tự động')
-@section('info_section_desc', 'Nạp cám tự động với nhiều ưu đãi hấp dẫn')
+@section('info_title', 'Nạp nấm tự động')
+@section('info_description', 'Nạp nấm tự động qua trên ' . request()->getHost())
+@section('info_keyword', 'nạp nấm, thanh toán tự động, Casso, ' . request()->getHost())
+@section('info_section_title', 'Nạp nấm tự động')
+@section('info_section_desc', 'Nạp nấm tự động với nhiều ưu đãi hấp dẫn')
 
 @push('styles')
     <style>
@@ -199,7 +199,7 @@
                 <div class="mb-2">
                     <p class="text-muted mb-0">
                         <i class="fas fa-info-circle me-1"></i>
-                        Thanh toán tự động, nhận cám ngay lập tức với nhiều ưu đãi hấp dẫn.
+                        Thanh toán tự động, nhận nấm ngay lập tức với nhiều ưu đãi hấp dẫn.
                     </p>
                     <p class="text-muted mb-0">
                         <i class="fas fa-info-circle me-1"></i>
@@ -268,7 +268,7 @@
                                 <div class="deposit-coin-preview mt-4">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <div class="small text-white opacity-75">Cám nhận được:</div>
+                                            <div class="small text-white opacity-75">Nấm nhận được:</div>
                                             <div class="coin-preview-value">
                                                 <i class="fas fa-coins me-2"></i>
                                                 <span id="totalCoinsPreview">0</span>
@@ -277,13 +277,13 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <small class="text-white fw-bold">
-                                                            <i class="fas fa-coins me-1"></i>Cám cộng:
+                                                            <i class="fas fa-coins me-1"></i>Nấm cộng:
                                                             <span id="baseCoinsPreview">0</span>
                                                         </small>
                                                     </div>
                                                     <div class="col-6">
                                                         <small class="color-text fw-bold">
-                                                            <i class="fas fa-gift me-1"></i>Cám tặng:
+                                                            <i class="fas fa-gift me-1"></i>Nấm tặng:
                                                             <span id="bonusCoinsPreview">0</span>
                                                         </small>
                                                     </div>
@@ -308,15 +308,15 @@
                     <!-- Bảng mức nạp tiền -->
                     <div class="deposit-table">
                         <h6 class="text-dark mb-3">
-                            Mức quy định đổi cám hiên tại:
+                            Mức quy định đổi nấm hiên tại:
                         </h6>
                         <div class="table-responsive">
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Số tiền</th>
-                                        <th class="text-center">Cám cộng</th>
-                                        <th class="text-center">Cám tặng</th>
+                                        <th class="text-center">Nấm cộng</th>
+                                        <th class="text-center">Nấm tặng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -325,7 +325,7 @@
                                     @endphp
                                     @foreach ($amounts as $amount)
                                         @php
-                                            // Tính toán cám cơ bản
+                                            // Tính toán nấm cơ bản
                                             $feeAmount = ($amount * $coinBankAutoPercent) / 100;
                                             $amountAfterFee = $amount - $feeAmount;
                                             $baseCoins = floor($amountAfterFee / $coinExchangeRate);
@@ -683,8 +683,8 @@
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Cám nhận được:</label>
-                                            <div class="fw-bold text-info">${coins.toLocaleString('vi-VN')} cám</div>
+                                            <label class="form-label">Nấm nhận được:</label>
+                                            <div class="fw-bold text-info">${coins.toLocaleString('vi-VN')} nấm</div>
                                         </div>
                                     </div>
                                 </div>
@@ -697,7 +697,7 @@
                                                     <p class="text-muted">Quét mã QR để thực hiện thanh toán</p>
                                                     <p class="text-muted mb-0 deposit-info-alert">
                                                         <i class="fas fa-info-circle me-1"></i>
-                                                        Bạn đã chuyển khoản nhưng không thấy cộng cám? => liên hệ <a class="color-7 fw-semibold" href="{{ \App\Models\Config::getConfig('facebook_page_url', 'https://www.facebook.com/profile.php?id=61572454674711') }}" target="_blank" rel="noopener noreferrer">fan page</a> gửi bill và tài khoản của bạn để hỗ trợ.
+                                                        Bạn đã chuyển khoản nhưng không thấy cộng nấm? => liên hệ <a class="color-7 fw-semibold" href="{{ \App\Models\Config::getConfig('facebook_page_url', 'https://www.facebook.com/profile.php?id=61572454674711') }}" target="_blank" rel="noopener noreferrer">fan page</a> gửi bill và tài khoản của bạn để hỗ trợ.
                                                     </p>
                                                 </div>
                                                 ` : ''}
@@ -707,8 +707,8 @@
                                     <ul class="mb-0">
                                         <li>Nội dung chuyển khoản phải chính xác: <strong>${transactionCode}</strong></li>
                                         <li>Số tiền chuyển khoản phải đúng: <strong>${amount.toLocaleString('vi-VN')} VNĐ</strong></li>
-                                        <li>Sau khi chuyển khoản, hệ thống sẽ tự động cộng cám trong vòng 1-5 phút</li>
-                                        <li>Nếu không nhận được cám sau 10 phút, vui lòng liên hệ <a class="color-7 fw-semibold" href="{{ \App\Models\Config::getConfig('facebook_page_url', 'https://www.facebook.com/profile.php?id=61572454674711') }}" target="_blank" rel="noopener noreferrer">fan page</a> hỗ trợ</li>
+                                        <li>Sau khi chuyển khoản, hệ thống sẽ tự động cộng nấm trong vòng 1-5 phút</li>
+                                        <li>Nếu không nhận được nấm sau 10 phút, vui lòng liên hệ <a class="color-7 fw-semibold" href="{{ \App\Models\Config::getConfig('facebook_page_url', 'https://www.facebook.com/profile.php?id=61572454674711') }}" target="_blank" rel="noopener noreferrer">fan page</a> hỗ trợ</li>
                                     </ul>
                                 </div>
                                 
@@ -828,7 +828,7 @@
                         <div class="d-flex">
                             <div class="toast-body">
                                 <i class="fas fa-check-circle me-2"></i>
-                                Giao dịch thành công! Bạn đã nhận được ${data.total_coins ? data.total_coins.toLocaleString('vi-VN') : 'cám'} cám.
+                                Giao dịch thành công! Bạn đã nhận được ${data.total_coins ? data.total_coins.toLocaleString('vi-VN') : 'nấm'} nấm.
                             </div>
                             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
                         </div>

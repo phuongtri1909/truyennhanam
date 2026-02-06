@@ -47,9 +47,9 @@ class DashboardController extends Controller
         if ($isAdminMain) {
             $revenueStats = $this->getRevenueStats($dateFilter);
             // $coinStats = $this->getCoinStats($dateFilter); // Đã đóng
-            // Đã đóng - Thống Kê Nạp Cám
+            // Đã đóng - Thống Kê Nạp Nấm
             // $depositStats = $this->getDepositStats($dateFilter);
-            // Đã đóng - Giao Dịch Cám Thủ Công
+            // Đã đóng - Giao Dịch Nấm Thủ Công
             // $manualCoinStats = $this->getManualCoinStats($dateFilter);
             
             $data = array_merge($data, compact(
@@ -86,9 +86,9 @@ class DashboardController extends Controller
             $data = array_merge($data, [
                 'revenueStats' => $this->getRevenueStats($dateFilter),
                 // 'coinStats' => $this->getCoinStats($dateFilter), // Đã đóng
-                // Đã đóng - Thống Kê Nạp Cám
+                // Đã đóng - Thống Kê Nạp Nấm
                 // 'depositStats' => $this->getDepositStats($dateFilter),
-                // Đã đóng - Giao Dịch Cám Thủ Công
+                // Đã đóng - Giao Dịch Nấm Thủ Công
                 // 'manualCoinStats' => $this->getManualCoinStats($dateFilter),
             ]);
         }
@@ -210,7 +210,7 @@ class DashboardController extends Controller
         return $revenueStats;
     }
     
-    // Đã đóng - Bỏ mục Tổng Cám người dùng, Cám đã nạp và Cám nhiệm vụ
+    // Đã đóng - Bỏ mục Tổng Nấm người dùng, Nấm đã nạp và Nấm nhiệm vụ
     // private function getCoinStats($dateFilter)
     // {
     //     // Get total coin statistics
@@ -239,7 +239,7 @@ class DashboardController extends Controller
     //     return (array) $coinStats;
     // }
     
-    // Đã đóng - Thống Kê Nạp Cám
+    // Đã đóng - Thống Kê Nạp Nấm
     // private function getDepositStats($dateFilter)
     // {
     //     // Get deposit statistics by type
@@ -315,7 +315,7 @@ class DashboardController extends Controller
     //     return $dailyTaskStats;
     // }
     
-    // Đã đóng - Giao Dịch Cám Thủ Công
+    // Đã đóng - Giao Dịch Nấm Thủ Công
     // private function getManualCoinStats($dateFilter)
     // {
     //     // Get manual coin transaction statistics

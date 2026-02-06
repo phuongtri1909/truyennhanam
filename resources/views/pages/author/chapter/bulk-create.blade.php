@@ -29,7 +29,7 @@
                 @if(($story->story_type ?? 'normal') !== 'zhihu')
                 <div class="col-md-4">
                     <div class="form-group author-form-group">
-                        <label class="author-form-label">Giá mặc định (cám)</label>
+                        <label class="author-form-label">Giá mặc định (nấm)</label>
                         <div class="author-input-wrapper">
                             <span class="author-input-icon"><i class="fa-solid fa-coins"></i></span>
                             <input type="number" class="form-control author-form-input" id="globalPrice" value="0" min="0">
@@ -107,7 +107,7 @@
             <div class="modal-body">
                 @if(($story->story_type ?? 'normal') !== 'zhihu')
                 <div class="mb-3">
-                    <label class="author-form-label">Giá riêng (cám)</label>
+                    <label class="author-form-label">Giá riêng (nấm)</label>
                     <div class="author-input-wrapper">
                         <span class="author-input-icon"><i class="fa-solid fa-coins"></i></span>
                         <input type="number" class="form-control author-form-input" id="individualPrice" min="0">
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
             row.classList.add(ch.existing ? 'table-warning' : 'table-success');
             const priceVal = ch.settings.customPrice !== null ? ch.settings.customPrice : ch.settings.price;
             const dateStr = ch.settings.publishNow ? 'Ngay lập tức' : formatDateTime(ch.settings.customPublishedAt || ch.settings.published_at);
-            const priceTd = isZhihu ? '' : `<td>${priceVal.toLocaleString()} cám</td>`;
+            const priceTd = isZhihu ? '' : `<td>${priceVal.toLocaleString()} nấm</td>`;
             row.innerHTML = `
                 <td><strong>Chương ${ch.number}</strong> ${ch.existing ? '<span class="badge bg-warning ms-1">Đã tồn tại</span>' : '<span class="badge bg-success ms-1">Mới</span>'}</td>
                 <td><small>${(ch.settings.customTitle || ch.title).substring(0, 40)}...</small></td>

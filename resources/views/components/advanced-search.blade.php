@@ -4,6 +4,10 @@
 
 <div class="advanced-search-container">
     <div class="search-content">
+        <div class="filter-header">
+            <span class="filter-header-bar"></span>
+            <span class="filter-header-title">Bộ lọc</span>
+        </div>
         <form method="GET" action="{{ $searchUrl }}" id="advanced-search-form">
             @if (isset($searchType))
                 <input type="hidden" name="search_type" value="{{ $searchType }}">

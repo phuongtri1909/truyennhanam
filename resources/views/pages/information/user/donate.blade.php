@@ -1,10 +1,10 @@
 @extends('layouts.information')
 
-@section('info_title', 'Donate cám')
-@section('info_description', 'Donate cám cho người khác trên ' . request()->getHost())
-@section('info_keyword', 'Donate cám, tặng cám, ' . request()->getHost())
-@section('info_section_title', 'Donate cám')
-@section('info_section_desc', 'Donate cám cho dịch giả hoặc người dùng khác')
+@section('info_title', 'Donate nấm')
+@section('info_description', 'Donate nấm cho người khác trên ' . request()->getHost())
+@section('info_keyword', 'Donate nấm, tặng nấm, ' . request()->getHost())
+@section('info_section_title', 'Donate nấm')
+@section('info_section_desc', 'Donate nấm cho dịch giả hoặc người dùng khác')
 
 @push('styles')
     <style>
@@ -98,8 +98,8 @@
                             <div class="author-form-info-title">Phí donate</div>
                             <p class="author-form-info-text mb-0">
                                 Phí donate hiện tại là <strong>{{ $donateFeePercentage }}%</strong>.
-                                Ví dụ: donate <strong>100 cám</strong> thì người nhận nhận <strong>{{ 100 - floor(100 * $donateFeePercentage / 100) }} cám</strong>
-                                (phí: {{ floor(100 * $donateFeePercentage / 100) }} cám).
+                                Ví dụ: donate <strong>100 nấm</strong> thì người nhận nhận <strong>{{ 100 - floor(100 * $donateFeePercentage / 100) }} nấm</strong>
+                                (phí: {{ floor(100 * $donateFeePercentage / 100) }} nấm).
                             </p>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
 
                         <div class="author-form-group">
                             <label for="amount" class="author-form-label">
-                                <i class="fas fa-coins me-2"></i>Số cám muốn donate
+                                <i class="fas fa-coins me-2"></i>Số nấm muốn donate
                             </label>
                             <div class="author-input-wrapper">
                                 <span class="author-input-icon"><i class="fas fa-coins"></i></span>
@@ -167,11 +167,11 @@
                                        name="amount"
                                        min="1"
                                        value="{{ old('amount') }}"
-                                       placeholder="Nhập số cám..."
+                                       placeholder="Nhập số nấm..."
                                        required>
                             </div>
                             <span class="author-form-hint">
-                                Số dư hiện tại: <strong class="color-7">{{ number_format(auth()->user()->coins) }} cám</strong>
+                                Số dư hiện tại: <strong class="color-7">{{ number_format(auth()->user()->coins) }} nấm</strong>
                             </span>
                             @error('amount')
                                 <div class="author-form-error">{{ $message }}</div>
@@ -185,7 +185,7 @@
                                 </h6>
                                 <div class="row g-2">
                                     <div class="col-6 col-md-3">
-                                        <div class="transaction-detail-label">Số cám donate</div>
+                                        <div class="transaction-detail-label">Số nấm donate</div>
                                         <div class="transaction-detail-value" id="previewAmount">0</div>
                                     </div>
                                     <div class="col-6 col-md-3">
@@ -238,6 +238,21 @@
             let searchTimeout;
             const donateFeePercentage = {{ $donateFeePercentage }};
             const currentBalance = {{ auth()->user()->coins }};
+            const preselectedRecipient = @json($preselectedRecipient ?? null);
+
+            // Tự động chọn người nhận khi từ trang dịch giả
+            if (preselectedRecipient) {
+                $('#recipientId').val(preselectedRecipient.id);
+                $('#selectedUserName').text(preselectedRecipient.name);
+                $('#selectedUserEmail').text(preselectedRecipient.email);
+                if (preselectedRecipient.avatar) {
+                    $('#selectedUserAvatar').html('<img src="' + preselectedRecipient.avatar + '" class="donate-selected-avatar" alt="">');
+                } else {
+                    $('#selectedUserAvatar').html('<div class="donate-selected-avatar-ph"><i class="fas fa-user"></i></div>');
+                }
+                $('#selectedUser').show();
+                updatePreview();
+            }
 
             $('#userSearch').on('keyup', function() {
                 clearTimeout(searchTimeout);
@@ -321,10 +336,10 @@
                     var fee = Math.floor(amount * donateFeePercentage / 100);
                     var received = amount - fee;
                     var balanceAfter = currentBalance - amount;
-                    $('#previewAmount').text(formatNum(amount) + ' cám');
-                    $('#previewFee').text('-' + formatNum(fee) + ' cám');
-                    $('#previewReceived').text(formatNum(received) + ' cám');
-                    $('#previewBalance').text(formatNum(balanceAfter) + ' cám');
+                    $('#previewAmount').text(formatNum(amount) + ' nấm');
+                    $('#previewFee').text('-' + formatNum(fee) + ' nấm');
+                    $('#previewReceived').text(formatNum(received) + ' nấm');
+                    $('#previewBalance').text(formatNum(balanceAfter) + ' nấm');
                     $('#donatePreview').show();
                     if (amount > currentBalance) {
                         $('#submitBtn').prop('disabled', true).html('<i class="fas fa-exclamation-triangle me-2"></i>Số dư không đủ');

@@ -2,7 +2,7 @@
 
 @section('info_title', 'Lịch sử donate')
 @section('info_description', 'Lịch sử donate của bạn trên ' . request()->getHost())
-@section('info_keyword', 'Lịch sử donate, donate cám')
+@section('info_keyword', 'Lịch sử donate, donate nấm')
 @section('info_section_title', 'Lịch sử donate')
 @section('info_section_desc', 'Các giao dịch donate bạn đã gửi hoặc nhận')
 
@@ -12,7 +12,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <a href="{{ route('user.donate') }}" class="btn btn-outline-secondary btn-sm">
-                        <i class="fa-solid fa-arrow-left me-1"></i>Quay lại Donate cám
+                        <i class="fa-solid fa-arrow-left me-1"></i>Quay lại Donate nấm
                     </a>
                 </div>
 
@@ -49,7 +49,7 @@
                                 <th>Loại</th>
                                 <th>Người gửi</th>
                                 <th>Người nhận</th>
-                                <th>Số cám</th>
+                                <th>Số nấm</th>
                                 <th>Phí</th>
                                 <th>Nhận được</th>
                                 <th>Lời nhắn</th>
@@ -82,7 +82,7 @@
                                         <span class="fw-medium">{{ $donate->recipient->name }}</span>
                                         <br><small class="text-muted">{{ $donate->recipient->email }}</small>
                                     </td>
-                                    <td>{{ number_format($donate->amount) }} cám</td>
+                                    <td>{{ number_format($donate->amount) }} nấm</td>
                                     <td>
                                         @if($donate->fee_amount > 0)
                                             <span class="text-muted">-{{ number_format($donate->fee_amount) }}</span>
@@ -92,9 +92,9 @@
                                     </td>
                                     <td>
                                         @if($isSent)
-                                            <span class="text-muted" title="Người nhận nhận được">{{ number_format($donate->received_amount) }} cám</span>
+                                            <span class="text-muted" title="Người nhận nhận được">{{ number_format($donate->received_amount) }} nấm</span>
                                         @else
-                                            <span class="fw-bold text-success">+{{ number_format($donate->received_amount) }} cám</span>
+                                            <span class="fw-bold text-success">+{{ number_format($donate->received_amount) }} nấm</span>
                                         @endif
                                     </td>
                                     <td><small>{{ Str::limit($donate->message, 100) }}</small></td>

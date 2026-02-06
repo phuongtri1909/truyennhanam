@@ -207,7 +207,7 @@
     </div>
 </div>
 
-{{-- Đã đóng - Bỏ mục Tổng Cám người dùng, Cám đã nạp và Cám nhiệm vụ --}}
+{{-- Đã đóng - Bỏ mục Tổng Nấm người dùng, Nấm đã nạp và Nấm nhiệm vụ --}}
 {{-- @if($isAdminMain)
 <!-- Coin Statistics -->
 <div class="row mb-4">
@@ -217,7 +217,7 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng cám người dùng</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng nấm người dùng</p>
                             <h5 class="font-weight-bolder mb-0" id="totalUserCoins">{{ number_format($coinStats['total_user_coins']) }}</h5>
                         </div>
                     </div>
@@ -237,7 +237,7 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Cám đã nạp</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Nấm đã nạp</p>
                             <h5 class="font-weight-bolder mb-0" id="totalDeposited">{{ number_format($coinStats['total_deposited']) }}</h5>
                         </div>
                     </div>
@@ -258,7 +258,7 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Cám nhiệm vụ</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Nấm nhiệm vụ</p>
                             <h5 class="font-weight-bolder mb-0" id="totalDailyTaskCoins">{{ number_format($coinStats['total_daily_task_coins']) }}</h5>
                         </div>
                     </div>
@@ -359,14 +359,14 @@
     @endif
 </div>
 
-{{-- Đã đóng - Thống Kê Nạp Cám --}}
+{{-- Đã đóng - Thống Kê Nạp Nấm --}}
 {{-- @if($isAdminMain)
 <!-- Deposit Statistics -->
 <div class="row mb-4">
     <div class="col-lg-6 mb-4">
         <div class="card">
             <div class="card-header pb-0">
-                <h6>Thống Kê Nạp Cám</h6>
+                <h6>Thống Kê Nạp Nấm</h6>
             </div>
             <div class="card-body p-3">
                 <div class="table-responsive">
@@ -375,7 +375,7 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Loại</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Số Lượng</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Tổng Cám</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Tổng Nấm</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Trung Bình</th>
                             </tr>
                         </thead>
@@ -422,7 +422,7 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Nhiệm Vụ</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Hoàn Thành</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Tổng Cám</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Tổng Nấm</th>
                             </tr>
                         </thead>
                         <tbody id="dailyTaskTable">
@@ -432,7 +432,7 @@
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $task->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ number_format($task->avg_coins_per_task) }} cám</p>
+                                            <p class="text-xs text-secondary mb-0">{{ number_format($task->avg_coins_per_task) }} nấm</p>
                                         </div>
                                     </div>
                                 </td>
@@ -456,7 +456,7 @@
     <div class="col-lg-6 mb-4">
         <div class="card">
             <div class="card-header pb-0">
-                <h6>Giao Dịch Cám Thủ Công</h6>
+                <h6>Giao Dịch Nấm Thủ Công</h6>
             </div>
             <div class="card-body p-3">
                 <div class="table-responsive">
@@ -465,7 +465,7 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Loại</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Số Giao Dịch</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Tổng Cám</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Tổng Nấm</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Trung Bình</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Admin</th>
                             </tr>
@@ -611,7 +611,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('newChapters').textContent = formatNumber(data.basicStats.new_chapters);
         document.getElementById('newComments').textContent = formatNumber(data.basicStats.new_comments);
         
-        // Đã đóng - Bỏ mục Tổng Cám người dùng, Cám đã nạp và Cám nhiệm vụ
+        // Đã đóng - Bỏ mục Tổng Nấm người dùng, Nấm đã nạp và Nấm nhiệm vụ
         // Update coin stats (only if admin_main)
         // if (data.coinStats) {
         //     document.getElementById('totalUserCoins').textContent = formatNumber(data.coinStats.total_user_coins);
@@ -628,11 +628,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.revenueStats) {
             updateTable('revenueTable', data.revenueStats, 'revenue');
         }
-        // Đã đóng - Thống Kê Nạp Cám
+        // Đã đóng - Thống Kê Nạp Nấm
         // if (data.depositStats) {
         //     updateTable('depositTable', data.depositStats, 'deposit');
         // }
-        // Đã đóng - Giao Dịch Cám Thủ Công
+        // Đã đóng - Giao Dịch Nấm Thủ Công
         // if (data.manualCoinStats) {
         //     updateTable('manualCoinTable', data.manualCoinStats, 'manual');
         // }
@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
                                 <h6 class="mb-0 text-sm">${item.name}</h6>
-                                <p class="text-xs text-secondary mb-0">${formatNumber(item.avg_coins_per_task)} cám</p>
+                                <p class="text-xs text-secondary mb-0">${formatNumber(item.avg_coins_per_task)} nấm</p>
                             </div>
                         </div>
                     </td>

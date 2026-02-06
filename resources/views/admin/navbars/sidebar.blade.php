@@ -201,7 +201,7 @@
                 </div>
             </li>
 
-            {{-- Nạp cám --}}
+            {{-- Nạp nấm --}}
             @if (Auth::user()->role === 'admin_main')
             @php
                 $depositMenuActive = request()->routeIs('admin.deposits.*', 'admin.request.payments.*',
@@ -216,7 +216,7 @@
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-money-bill-transfer text-dark icon-sidebar"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Nạp cám</span>
+                    <span class="nav-link-text ms-1">Nạp nấm</span>
                     <i class="fas fa-chevron-down text-xs opacity-5"></i>
                 </a>
                 <div class="collapse mt-1 {{ $depositMenuActive ? 'show' : '' }}" id="depositSubmenu" style="margin-left: 15px">
@@ -228,7 +228,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-exchange-alt text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Nạp cám auto</span>
+                                <span class="nav-link-text ms-1">Nạp nấm auto</span>
                             </a>
                         </li>
                         
@@ -239,7 +239,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-credit-card text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Nạp cám - Thẻ cào</span>
+                                <span class="nav-link-text ms-1">Nạp nấm - Thẻ cào</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -249,7 +249,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fab fa-paypal text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Nạp cám - PayPal
+                                <span class="nav-link-text ms-1">Nạp nấm - PayPal
                                     @php
                                         $pendingPaypalCount = \App\Models\PaypalDeposit::where('status', 'processing')->count();
                                     @endphp
@@ -277,7 +277,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-university text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Nạp cám - Bank
+                                <span class="nav-link-text ms-1">Nạp nấm - Bank
                                     @php
                                         $pendingDepositsCount = \App\Models\Deposit::where('status', 'pending')->count();
                                     @endphp
@@ -313,7 +313,7 @@
             </li>
             @endif
 
-            {{-- Quản lý cám --}}
+            {{-- Quản lý nấm --}}
             @if (Auth::user()->role === 'admin_main')
             @php
                 $coinMenuActive = request()->routeIs('admin.coins.*', 'admin.coin.transactions', 'admin.coin-transfers.*', 'admin.coin-history.*');
@@ -326,7 +326,7 @@
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-coins text-dark icon-sidebar"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Quản lý cám</span>
+                    <span class="nav-link-text ms-1">Quản lý nấm</span>
                     <i class="fas fa-chevron-down text-xs opacity-5"></i>
                 </a>
                 <div class="collapse mt-1 {{ $coinMenuActive ? 'show' : '' }}" id="coinSubmenu" style="margin-left: 15px">
@@ -338,7 +338,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-coins text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Quản lý cám</span>
+                                <span class="nav-link-text ms-1">Quản lý nấm</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -348,7 +348,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-history text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Kiểm soát cám thủ công</span>
+                                <span class="nav-link-text ms-1">Kiểm soát nấm thủ công</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -358,7 +358,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-exchange-alt text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Giám sát chuyển cám</span>
+                                <span class="nav-link-text ms-1">Giám sát chuyển nấm</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -368,7 +368,7 @@
                                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-history text-dark icon-sidebar"></i>
                                 </div>
-                                <span class="nav-link-text ms-1">Lịch sử cám</span>
+                                <span class="nav-link-text ms-1">Lịch sử nấm</span>
                             </a>
                         </li>
                     </ul>
@@ -382,7 +382,7 @@
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-exchange-alt text-dark icon-sidebar"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Chuyển cám của tôi</span>
+                    <span class="nav-link-text ms-1">Chuyển nấm của tôi</span>
                 </a>
             </li>
             @endif

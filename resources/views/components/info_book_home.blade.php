@@ -15,20 +15,7 @@
                         @endif
                     </div>
 
-                    <div class="mt-3 d-flex justify-content-between">
-                        <span class="fw-semibold d-flex align-items-center rating-count">
-                            <i class="fas fa-star text-warning"></i>
-                            {{ number_format($stats['ratings']['average'], 1) }}
-                        </span>
-                        <span class="fw-semibold d-flex align-items-center bookmark-count">
-                            <img src="{{ asset('images/svg/bookmark.svg') }}" alt="eye" class="img-fluid">
-                            {{ number_format($stats['total_bookmarks']) }}
-                        </span>
-                        <span class="fw-semibold d-flex align-items-center view-count">
-                            <img src="{{ asset('images/svg/view.svg') }}" alt="eye" class="img-fluid">
-                            {{ number_format($stats['total_views']) }}
-                        </span>
-                    </div>
+                    
 
                 </div>
                 <div class="col-12 col-md-6 col-lg-8 col-xl-9">
@@ -36,6 +23,17 @@
                         <div class="mb-3 text-start">
                             <h2 class="fw-semibold color-3 fs-4">{{ $story->title }}</h2>
                             <div class="mt-3">
+                                <div class="mt-3 mb-1 d-flex ">
+                                    <span class="fw-semibold d-flex align-items-center rating-count me-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        {{ number_format($stats['ratings']['average'], 1) }}
+                                    </span>
+                                   
+                                    <span class="fw-semibold d-flex align-items-center view-count">
+                                        <img src="{{ asset('images/svg/view.svg') }}" alt="eye" class="img-fluid">
+                                        {{ number_format($stats['total_views']) }}
+                                    </span>
+                                </div>
                                 <div class="d-flex">
                                     <div class="rating">
                                         @php
@@ -70,7 +68,7 @@
                                         <span class="text-muted fw-semibold">Dịch giả</span>
                                     </div>
                                     <div class="info-content">
-                                        <a href="{{ route('search.translator', ['query' => $story->user->name]) }}"
+                                        <a href="{{ route('translator.show', $story->user) }}"
                                             class="text-decoration-none text-dark fw-semibold">
                                             {{ $story->user->name }}
                                         </a>
@@ -134,24 +132,23 @@
 
                         <div class="d-flex">
                             <a href="#all-chapter"
-                                class="btn btn-md bg-7 text-decoration-none fw-semibold rounded-0 me-3">
+                                class="btn btn-md text-decoration-none fw-semibold rounded-2 bg-2 me-3">
                                 Đọc truyện
                             </a>
 
                             <button
-                                class="btn btn-md btn-outline-dark rounded-0 text-decoration-none fw-semibold bookmark-toggle-btn"
+                                class="btn btn-md btn-outline-dark rounded-2 border-color-2 border-3 text-decoration-none fw-semibold bookmark-toggle-btn"
                                 data-story-id="{{ $story->id }}"
                                 title="@auth @if ($isBookmarked) Bỏ theo dõi @else Theo dõi @endif @else Đăng nhập để theo dõi @endauth">
                                 <span class="bookmark-label">
-                                    <i class="fa-regular fa-bookmark"></i>
                                     @auth
                                         @if ($isBookmarked)
-                                            Bỏ theo dõi
+                                            Bỏ lưu truyện
                                         @else
-                                            Theo dõi
+                                            Lưu truyện
                                         @endif
                                     @else
-                                        Theo dõi
+                                        Lưu truyện
                                     @endauth
                                 </span>
                                 <span class="bookmark-count ms-1">({{ $stats['total_bookmarks'] ?? 0 }})</span>
@@ -166,19 +163,22 @@
     </div>
 </section>
 
-<section id="description" class="mt-5">
-    <div class="color-text d-flex align-items-baseline bg-1 px-3 py-1">
-        <h5 class="mb-0">Giới Thiệu</h5>
+<section id="description" class="mt-3">
+    <div class="color-text d-flex align-items-baseline py-1">
+        <h4 class="section-title-tdc d-flex align-items-center gap-2 m-0 fw-bold color-3">
+            <span class="section-title-bar"></span>
+            Giới thiệu truyện
+        </h4>
     </div>
 
     <div class="description-container">
-        <div class="description-content text-dark mt-4 mb-0 text-justify"
+        <div class="description-content text-dark mt-2 mb-0 text-justify"
             id="description-content-{{ $story->id }}">
             {!! $story->description !!}
         </div>
-        <div class="description-toggle-btn mt-2 text-end d-none">
-            <button class="btn btn-sm btn-link show-more-btn">Xem thêm »</button>
-            <button class="btn btn-sm btn-link show-less-btn d-none">« Thu gọn</button>
+        <div class="description-toggle-btn mt-2 text-center d-none">
+            <button class="btn btn-sm show-more-btn color-1"><i class="fa-solid fa-circle-chevron-down fa-2xl "></i></button>
+            <button class="btn btn-sm show-less-btn d-none color-1"><i class="fa-solid fa-circle-chevron-up fa-2xl "></i></button>
         </div>
     </div>
 </section>

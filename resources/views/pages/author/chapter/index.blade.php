@@ -52,7 +52,7 @@
                 <tr>
                     <td>Chương {{ $chapter->number }}</td>
                     <td>{{ $chapter->title }}</td>
-                    <td>{{ $chapter->is_free ? 'Miễn phí' : $chapter->price . ' cám' }}</td>
+                    <td>{{ $chapter->is_free ? 'Miễn phí' : $chapter->price . ' nấm' }}</td>
                     <td><span class="badge author-status-tag bg-{{ $chapter->status == 'published' ? 'success' : 'secondary' }}">{{ $chapter->status == 'published' ? 'Hiển thị' : 'Nháp' }}</span></td>
                     <td>
                         @if($chapter->scheduled_publish_at && $chapter->status === 'draft')

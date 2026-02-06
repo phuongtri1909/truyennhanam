@@ -16,7 +16,7 @@ class CoinTransfer extends Model
     ];
 
     /**
-     * Get the admin who transferred cám
+     * Get the admin who transferred nấm
      */
     public function fromAdmin(): BelongsTo
     {
@@ -24,7 +24,7 @@ class CoinTransfer extends Model
     }
 
     /**
-     * Get the user who received cám
+     * Get the user who received nấm
      */
     public function toUser(): BelongsTo
     {

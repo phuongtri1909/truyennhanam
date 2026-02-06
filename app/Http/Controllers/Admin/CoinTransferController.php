@@ -68,7 +68,7 @@ class CoinTransferController extends Controller
     public function create()
     {
         if (Auth::user()->role !== 'admin_sub') {
-            abort(403, 'Chỉ admin_sub mới được phép chuyển cám');
+            abort(403, 'Chỉ admin_sub mới được phép chuyển nấm');
         }
 
         return view('admin.pages.coin-transfers.create');
@@ -77,7 +77,7 @@ class CoinTransferController extends Controller
     public function store(Request $request)
     {
         if (Auth::user()->role !== 'admin_sub') {
-            abort(403, 'Chỉ admin_sub mới được phép chuyển cám');
+            abort(403, 'Chỉ admin_sub mới được phép chuyển nấm');
         }
 
         $request->validate([
@@ -90,10 +90,10 @@ class CoinTransferController extends Controller
             'user_ids.array' => 'Người nhận không hợp lệ',
             'user_ids.min' => 'Vui lòng chọn ít nhất 1 người nhận',
             'user_ids.*.exists' => 'Một trong số người nhận không tồn tại',
-            'amount.required' => 'Vui lòng nhập số Cám',
-            'amount.integer' => 'Số Cám phải là số nguyên',
-            'amount.min' => 'Số Cám phải lớn hơn 0',
-            'amount.max' => 'Số Cám không được vượt quá 50,000',
+            'amount.required' => 'Vui lòng nhập số Nấm',
+            'amount.integer' => 'Số Nấm phải là số nguyên',
+            'amount.min' => 'Số Nấm phải lớn hơn 0',
+            'amount.max' => 'Số Nấm không được vượt quá 50,000',
             'note.max' => 'Ghi chú không được vượt quá 500 ký tự',
         ]);
 
@@ -107,7 +107,7 @@ class CoinTransferController extends Controller
         $totalAmountNeeded = $request->amount * count($request->user_ids);
 
         if ($admin->coins < $totalAmountNeeded) {
-            return redirect()->back()->withErrors(['amount' => "Số Cám của bạn ({$admin->coins}) không đủ để chuyển {$totalAmountNeeded} Cám cho " . count($request->user_ids) . " người"]);
+            return redirect()->back()->withErrors(['amount' => "Số Nấm của bạn ({$admin->coins}) không đủ để chuyển {$totalAmountNeeded} Nấm cho " . count($request->user_ids) . " người"]);
         }
 
         DB::beginTransaction();
@@ -138,8 +138,8 @@ class CoinTransferController extends Controller
             DB::commit();
 
             $message = count($transfers) === 1
-                ? "Đã chuyển {$request->amount} Cám cho {$recipientEmails[0]} thành công"
-                : "Đã chuyển {$request->amount} Cám cho " . count($transfers) . " người thành công";
+                ? "Đã chuyển {$request->amount} Nấm cho {$recipientEmails[0]} thành công"
+                : "Đã chuyển {$request->amount} Nấm cho " . count($transfers) . " người thành công";
 
             return redirect()->route('admin.coin-transfers.index')
                 ->with('success', $message);
@@ -148,7 +148,7 @@ class CoinTransferController extends Controller
             Log::error('Error processing coin transfer: ' . $e->getMessage());
 
             return redirect()->back()
-                ->with('error', 'Có lỗi xảy ra khi xử lý chuyển Cám');
+                ->with('error', 'Có lỗi xảy ra khi xử lý chuyển Nấm');
         }
     }
 

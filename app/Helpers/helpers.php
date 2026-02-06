@@ -95,14 +95,14 @@ if (!function_exists('generateRandomOTP')) {
 
 if (!function_exists('calculateBonusCoins')) {
     /**
-     * Tính cám tặng theo công thức hàm mũ
+     * Tính nấm tặng theo công thức hàm mũ
      * 
      * @param int $amountAfterFee Số tiền sau phí
      * @param int $bonusBaseAmount Mốc cơ bản (100000)
-     * @param int $bonusBaseCam Cám tặng mốc cơ bản (300)
+     * @param int $bonusBaseCam Nấm tặng mốc cơ bản (300)
      * @param int $bonusDoubleAmount Mốc gấp đôi (300000)
-     * @param int $bonusDoubleCam Cám tặng mốc gấp đôi (1000)
-     * @return int Số cám tặng
+     * @param int $bonusDoubleCam Nấm tặng mốc gấp đôi (1000)
+     * @return int Số nấm tặng
      */
     function calculateBonusCoins($amountAfterFee, $bonusBaseAmount, $bonusBaseCam, $bonusDoubleAmount, $bonusDoubleCam)
     {
@@ -127,25 +127,25 @@ if (!function_exists('calculateBonusCoins')) {
 
 if (!function_exists('calculateTotalCoins')) {
     /**
-     * Tính tổng cám nhận được (cám cộng + cám tặng)
+     * Tính tổng nấm nhận được (nấm cộng + nấm tặng)
      * 
      * @param int $amount Số tiền nạp
      * @param int $coinExchangeRate Tỷ giá (100)
      * @param int $coinPercent Phí giao dịch (%)
      * @param int $bonusBaseAmount Mốc cơ bản bonus
-     * @param int $bonusBaseCam Cám tặng mốc cơ bản
+     * @param int $bonusBaseCam Nấm tặng mốc cơ bản
      * @param int $bonusDoubleAmount Mốc gấp đôi bonus
-     * @param int $bonusDoubleCam Cám tặng mốc gấp đôi
+     * @param int $bonusDoubleCam Nấm tặng mốc gấp đôi
      * @return array ['base_coins' => int, 'bonus_coins' => int, 'total_coins' => int]
      */
     function calculateTotalCoins($amount, $coinExchangeRate, $coinPercent, $bonusBaseAmount, $bonusBaseCam, $bonusDoubleAmount, $bonusDoubleCam)
     {
-        // Tính cám cơ bản
+        // Tính nấm cơ bản
         $feeAmount = ($amount * $coinPercent) / 100;
         $amountAfterFee = $amount - $feeAmount;
         $baseCoins = floor($amountAfterFee / $coinExchangeRate);
 
-        // Tính cám tặng
+        // Tính nấm tặng
         $bonusCoins = calculateBonusCoins($amountAfterFee, $bonusBaseAmount, $bonusBaseCam, $bonusDoubleAmount, $bonusDoubleCam);
 
         return [

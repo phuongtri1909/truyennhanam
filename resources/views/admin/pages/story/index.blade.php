@@ -271,7 +271,7 @@
                                 </td>
                                 <td>
                                     @if($story->has_combo)
-                                        <span class="badge bg-gradient-danger">{{ $story->combo_price }} cám</span>
+                                        <span class="badge bg-gradient-danger">{{ $story->combo_price }} nấm</span>
                                     @else
                                        -
                                     @endif

@@ -226,7 +226,7 @@ class RequestPaymentController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Yêu cầu nạp cám đã được gửi. Chúng tôi sẽ kiểm tra và xử lý trong thời gian sớm nhất.',
+                'message' => 'Yêu cầu nạp nấm đã được gửi. Chúng tôi sẽ kiểm tra và xử lý trong thời gian sớm nhất.',
                 'deposit_id' => $deposit->id
             ]);
         } catch (\Exception $e) {
@@ -240,7 +240,7 @@ class RequestPaymentController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => 'Có lỗi xảy ra khi xác nhận yêu cầu nạp cám. Vui lòng thử lại sau.'
+                'message' => 'Có lỗi xảy ra khi xác nhận yêu cầu nạp nấm. Vui lòng thử lại sau.'
             ], 500);
         }
     }

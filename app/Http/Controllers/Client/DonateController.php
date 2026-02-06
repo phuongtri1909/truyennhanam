@@ -24,11 +24,27 @@ class DonateController extends Controller
 
     /**
      * Display donate page
+     * Query ?recipient=user_id để tự động chọn người nhận (từ trang dịch giả)
      */
-    public function index()
+    public function index(Request $request)
     {
         $donateFeePercentage = Config::getConfig('donate_fee_percentage', 10);
-        return view('pages.information.user.donate', compact('donateFeePercentage'));
+        $preselectedRecipient = null;
+        $recipientId = $request->query('recipient');
+        if ($recipientId) {
+            $recipient = User::find($recipientId);
+            $sender = Auth::user();
+            if ($recipient && $sender && $recipient->id !== $sender->id) {
+                $preselectedRecipient = [
+                    'id' => $recipient->id,
+                    'name' => $recipient->name,
+                    'email' => $recipient->email,
+                    'avatar' => $recipient->avatar ? Storage::url($recipient->avatar) : null,
+                    'role_label' => $recipient->role === 'author' ? 'Dịch giả' : 'Người dùng',
+                ];
+            }
+        }
+        return view('pages.information.user.donate', compact('donateFeePercentage', 'preselectedRecipient'));
     }
 
     /**
@@ -92,13 +108,13 @@ class DonateController extends Controller
         ], [
             'recipient_id.required' => 'Vui lòng chọn người nhận.',
             'recipient_id.exists' => 'Người nhận không tồn tại.',
-            'amount.required' => 'Vui lòng nhập số cám muốn donate.',
-            'amount.integer' => 'Số cám phải là số nguyên.',
-            'amount.min' => 'Số cám phải lớn hơn 0.',
+            'amount.required' => 'Vui lòng nhập số nấm muốn donate.',
+            'amount.integer' => 'Số nấm phải là số nguyên.',
+            'amount.min' => 'Số nấm phải lớn hơn 0.',
             'message.max' => 'Lời nhắn không được vượt quá 100 ký tự.',
         ], [
             'recipient_id' => 'Người nhận',
-            'amount' => 'Số cám',
+            'amount' => 'Số nấm',
             'message' => 'Lời nhắn',
         ]);
 
@@ -119,7 +135,7 @@ class DonateController extends Controller
 
         $donateAmount = $request->amount;
         if ($sender->coins < $donateAmount) {
-            return redirect()->back()->with('error', 'Bạn không đủ cám để donate.');
+            return redirect()->back()->with('error', 'Bạn không đủ nấm để donate.');
         }
 
         $donateFeePercentage = Config::getConfig('donate_fee_percentage', 10);
@@ -129,7 +145,7 @@ class DonateController extends Controller
         DB::beginTransaction();
 
         try {
-            $senderDescription = "Donate {$donateAmount} cám cho {$recipient->name}" . ($request->message ? " - {$request->message}" : '');
+            $senderDescription = "Donate {$donateAmount} nấm cho {$recipient->name}" . ($request->message ? " - {$request->message}" : '');
             $senderTransaction = $this->coinService->subtractCoins(
                 $sender,
                 $donateAmount,
@@ -137,7 +153,7 @@ class DonateController extends Controller
                 $senderDescription
             );
 
-            $recipientDescription = "Nhận donate {$donateAmount} cám từ {$sender->name}" . ($feeAmount > 0 ? " (phí {$donateFeePercentage}%: -{$feeAmount} cám, nhận: {$receivedAmount} cám)" : '') . ($request->message ? " - {$request->message}" : '');
+            $recipientDescription = "Nhận donate {$donateAmount} nấm từ {$sender->name}" . ($feeAmount > 0 ? " (phí {$donateFeePercentage}%: -{$feeAmount} nấm, nhận: {$receivedAmount} nấm)" : '') . ($request->message ? " - {$request->message}" : '');
             $this->coinService->addCoins(
                 $recipient,
                 $receivedAmount,
@@ -157,7 +173,7 @@ class DonateController extends Controller
 
             DB::commit();
 
-            return redirect()->route('user.donate')->with('success', "Đã donate {$donateAmount} cám cho {$recipient->name}. Người nhận nhận được {$receivedAmount} cám" . ($feeAmount > 0 ? " (phí {$donateFeePercentage}%: {$feeAmount} cám)" : '') . '.');
+            return redirect()->route('user.donate')->with('success', "Đã donate {$donateAmount} nấm cho {$recipient->name}. Người nhận nhận được {$receivedAmount} nấm" . ($feeAmount > 0 ? " (phí {$donateFeePercentage}%: {$feeAmount} nấm)" : '') . '.');
 
         } catch (\Exception $e) {
             DB::rollBack();

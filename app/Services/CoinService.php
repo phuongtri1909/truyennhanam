@@ -129,7 +129,7 @@ class CoinService
     public function subtractCoins(User $user, int $amount, string $transactionType, string $description = null, $reference = null, $adminId = null)
     {
         if ($user->coins < $amount) {
-            throw new \Exception('Không đủ cám để thực hiện giao dịch này');
+            throw new \Exception('Không đủ nấm để thực hiện giao dịch này');
         }
 
         return $this->processTransaction($user, -$amount, 'subtract', $transactionType, $description, $reference, $adminId);
@@ -284,7 +284,7 @@ class CoinService
             $query->whereDate('created_at', '<=', $dateTo);
         }
 
-        // Tính cám nhiệm vụ từ user_daily_tasks
+        // Tính nấm nhiệm vụ từ user_daily_tasks
         $dailyTaskQuery = \App\Models\UserDailyTask::query();
         if ($dateFrom) {
             $dailyTaskQuery->whereDate('created_at', '>=', $dateFrom);

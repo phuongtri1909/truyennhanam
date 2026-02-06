@@ -68,7 +68,7 @@ class DepositController extends Controller
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Đã phê duyệt giao dịch và cộng ' . ($deposit->total_coins ?? $deposit->coins) . ' cám vào tài khoản người dùng.');
+            return redirect()->back()->with('success', 'Đã phê duyệt giao dịch và cộng ' . ($deposit->total_coins ?? $deposit->coins) . ' nấm vào tài khoản người dùng.');
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error approving deposit: ' . $e->getMessage());

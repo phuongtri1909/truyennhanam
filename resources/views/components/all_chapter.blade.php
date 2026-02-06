@@ -105,12 +105,21 @@
     </style>
 @endpush
 
+@php
+    $showComboButton = $showComboButton ?? false;
+@endphp
 <section id="all-chapter" class="mt-5">
-        <div class="color-text d-flex align-items-baseline bg-1 px-3 py-1">
-            <h5 class="mb-0">Danh Sách Chương ({{ $chapters->count() }} chương)</h5>
-        </div>
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+        <h4 class="section-title-tdc d-flex align-items-center gap-2 m-0 fw-bold color-3">
+            <span class="section-title-bar"></span>
+            Danh sách chương ({{ $chapters->count() }} chương)
+        </h4>
+        @if ($showComboButton && isset($story))
+            @include('components.combo_story', ['story' => $story, 'inline' => true])
+        @endif
+    </div>
 
-        <div class="list-chapter mt-5">
+        <div class="list-chapter mt-3">
             <div id="chapters-container">
                 @include('components.chapter-items', [
                     'chapters' => $chapters,
