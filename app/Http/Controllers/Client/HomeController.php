@@ -959,16 +959,55 @@ class HomeController extends Controller
             ->sortBy([['featured_order', 'asc'], ['created_at', 'desc']])
             ->values();
 
-        // Truyện đề cử: luôn đủ 16 truyện
         if ($hotStories->count() > 16) {
             $hotStories = $hotStories->shuffle()->take(16)->values();
         } elseif ($hotStories->count() < 16) {
             $featuredIdSet = $hotStories->pluck('id')->flip();
-            $candidates = $allStories->filter(fn($s) => !isset($featuredIdSet[$s->id]));
+            $candidates = $allStories->filter(fn($s) => !isset($featuredIdSet[$s->id]) && $s->completed);
             $need = 16 - $hotStories->count();
             if ($candidates->isNotEmpty() && $need > 0) {
                 $extra = $candidates->random(min($need, $candidates->count()));
                 $hotStories = $hotStories->merge(collect($extra))->values();
+            } elseif ($need > 0) {
+                $extraIds = Story::published()
+                    ->visible()
+                    ->hide18Plus()
+                    ->where('completed', true)
+                    ->whereNotIn('id', $hotStories->pluck('id'))
+                    ->whereHas('chapters', fn($q) => $q->where('status', 'published'))
+                    ->when($request->category_id, function ($q) use ($request) {
+                        $q->whereHas('categories', fn($cq) => $cq->where('categories.id', $request->category_id));
+                    })
+                    ->inRandomOrder()
+                    ->limit($need)
+                    ->pluck('id');
+                if ($extraIds->isNotEmpty()) {
+                    $extraStories = Story::whereIn('id', $extraIds)
+                        ->published()
+                        ->visible()
+                        ->with([
+                            'categories:id,name,slug,is_main',
+                            'latestChapter' => fn($q) => $q->select('id', 'story_id', 'number', 'slug', 'title', 'created_at')->where('status', 'published'),
+                        ])
+                        ->select('id', 'title', 'slug', 'cover', 'completed', 'is_18_plus', 'author_name', 'description', 'created_at', 'updated_at', 'is_featured', 'featured_order', 'has_combo', 'combo_price')
+                        ->withCount(['chapters' => fn($q) => $q->where('status', 'published')])
+                        ->selectSub(function ($q) {
+                            $q->from('ratings')->selectRaw('AVG(rating)')->whereColumn('ratings.story_id', 'stories.id');
+                        }, 'average_rating')
+                        ->selectSub(function ($q) {
+                            $q->from('chapters')->selectRaw('SUM(price)')->whereColumn('chapters.story_id', 'stories.id')->where('status', 'published')->where('is_free', 0);
+                        }, 'total_chapter_price')
+                        ->selectSub(function ($q) {
+                            $q->from('chapters')->selectRaw('SUM(views)')->whereColumn('chapters.story_id', 'stories.id')->where('status', 'published');
+                        }, 'total_views')
+                        ->get()
+                        ->keyBy('id');
+                    foreach ($extraIds as $id) {
+                        if ($story = $extraStories->get($id)) {
+                            $hotStories = $hotStories->push($story);
+                        }
+                    }
+                }
             }
         }
 

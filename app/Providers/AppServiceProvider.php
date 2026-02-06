@@ -155,13 +155,11 @@ class AppServiceProvider extends ServiceProvider
         $cacheKey = 'app_top_stories_' . Carbon::today()->format('Y-m-d') . '_' . ($hide18OnHome ? 'hide18' : 'all');
 
         return Cache::remember($cacheKey, 60, function () use ($hide18OnHome) {
-            $today = Carbon::today();
-            $weekAgo = $today->copy()->subDays(7);
-            $monthAgo = $today->copy()->subDays(30);
+            $weekAgo = Carbon::today()->copy()->subDays(7);
 
-            $dailyIds = $this->getTopStoryIds($today);
             $weeklyIds = $this->getTopStoryIds($weekAgo);
-            $monthlyIds = $this->getTopStoryIds($monthAgo);
+            $dailyIds = collect();
+            $monthlyIds = collect();
 
             $allStoryIds = collect([$dailyIds, $weeklyIds, $monthlyIds])
                 ->flatten()
@@ -281,29 +279,23 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Lấy top story IDs theo ngày (chỉ lấy IDs, không load data)
+     * Lấy random 10 story IDs có mua trong khoảng thời gian (chỉ lấy IDs, không load data)
+     * Không xếp theo số lượng mua, chỉ random từ những truyện có được mua trong tuần/ngày/tháng
      */
     private function getTopStoryIds($fromDate)
     {
         $storyIds = DB::select("
-            SELECT story_id, SUM(purchase_count) as total_purchases
-            FROM (
-                SELECT story_id, COUNT(*) as purchase_count
-                FROM story_purchases 
-                WHERE created_at >= ?
-                GROUP BY story_id
-                UNION ALL
-                SELECT chapters.story_id, COUNT(*) as purchase_count
-                FROM chapter_purchases 
+            SELECT story_id FROM (
+                SELECT story_id FROM story_purchases WHERE created_at >= ?
+                UNION
+                SELECT chapters.story_id FROM chapter_purchases
                 INNER JOIN chapters ON chapter_purchases.chapter_id = chapters.id
                 WHERE chapter_purchases.created_at >= ?
-                GROUP BY chapters.story_id
-            ) as combined_purchases
-            GROUP BY story_id
-            ORDER BY total_purchases DESC
+            ) as stories_with_purchases
+            ORDER BY RAND()
             LIMIT 10
         ", [$fromDate, $fromDate]);
-        
+
         return collect($storyIds)->pluck('story_id');
     }
 
